@@ -68,8 +68,10 @@ sleep(2);
 if(answer == "y" || answer == "Y")
 {
 cout << "uninstaling...\n";
+system("find /usr/bin -type l -lname '/opt/Zielina_Package_Manager/*' -delete");
 system("rm -rf /etc/profile.d/Zielina_Package_Manager.sh");
 system("rm -rf /opt/Zielina_Package_Manager");
+
 sleep (2);
 cout << "...done\n";
 return 0;

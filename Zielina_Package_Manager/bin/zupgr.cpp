@@ -75,6 +75,7 @@ system("git clone https://github.com/Ignacyyy/Zielina_Package_Manager.git /tmp/Z
 system("mkdir -p /opt/Zielina_Package_Manager");
 system("rsync -a /tmp/Zielina_Package_Manager/ /opt/Zielina_Package_Manager/");
 system("chmod -R +x /opt/Zielina_Package_Manager/programs");
+system("ln -sf /opt/Zielina_Package_Manager/programs/* /usr/bin/");
 system("rm -rf /tmp/Zielina_Package_Manager");
 cout << "done\n";
 return 0;

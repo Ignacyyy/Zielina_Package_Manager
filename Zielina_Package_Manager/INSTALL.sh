@@ -41,6 +41,9 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
     chmod +x "$PROFILE_SCRIPT"
     sleep 1
 
+    echo "Linking commands..."
+    ln -sf "$PROGRAMS_PATH"/* /usr/bin/
+
     echo ""
     echo "Installation finished :)"
     echo "Please reboot or log out and log back in for changes to take effect."
