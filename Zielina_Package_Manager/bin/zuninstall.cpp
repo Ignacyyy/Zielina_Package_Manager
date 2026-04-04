@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <unistd.h>
+
+int main() {
+using namespace std;
+
+    // Root
+    if (geteuid() != 0) {
+        std::cerr << " Use sudo!\n";
+        return 1;
+    }
+string answer;
+cout << "\033[1mZielina Package Manager Uninstall program, do you want to continue ?\033[0m [y/N]\n";
+const string GREEN = "\033[1;32m"; 
+const string RESET = "\033[0m";    
+
+cout << GREEN;
+    
+ cout << R"(    
+  
+
+                               ↑                                                         
+                               ↑↑                                                        
+                               ↖↑↙←                       ↑                              
+                               ↑↖↙↖↘↖                     ↑                              
+                               ↗↙↑↑↙↑↑←                 ↖↑←                              
+                               →↖↖↓↑↖↑↓↑              →↑↑↑                               
+                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←                               
+                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑                               
+                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑                            
+                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑                            
+                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←                            
+                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙                           
+                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←                           
+               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→                           
+                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←                           
+                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑                           
+                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓                           
+                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→                           
+                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘                           
+                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑                            
+                                              ↑    ←→↗↖←↘↖↘←↓                            
+                                               ↑   ←↖↖←↗↖↖↗↘                             
+                                                ↘  ←→←↖↓↗↙→                              
+                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→                               
+                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑                                
+                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗                                  
+                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖                                   
+                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑                                   
+                                  →→↙↓↘↓←↙↘↗↙          ↖                                 
+                                                        ↑                                
+                                                                                         
+                                                           ↑                             
+                                                            ↑                            
+                                                              ↑                          
+                                                                ↑↖                       
+                                                                   ↑                     
+                                                                     ↑                   
+                                                                        ↑                
+                                                                           ↑↖            
+)" << endl;
+std::cout << RESET;
+cin >> answer;
+sleep(2);
+
+if(answer == "y" || answer == "Y")
+{
+cout << "uninstaling...\n";
+system("rm -rf /etc/profile.d/Zielina_Package_Manager.sh");
+system("rm -rf /opt/Zielina_Package_Manager");
+sleep (2);
+cout << "...done\n";
+return 0;
+}
+else
+{
+cout << "Uninstall canceled\n";
+return 0;
+}
+
+}
