@@ -8,7 +8,7 @@ using namespace std;
 
     // Root
     if (geteuid() != 0) {
-        std::cerr << " Use sudo!\n";
+        cout << "Run with sudo!\n";
         return 1;
     }
 string answer;
@@ -61,7 +61,7 @@ cout << GREEN;
                                                                         ↑                
                                                                            ↑↖            
 )" << endl;
-std::cout << RESET;
+cout << RESET;
 cin >> answer;
 sleep(2);
 

@@ -3,59 +3,94 @@
 #include <cstdlib>
 #include <unistd.h>
 
+using namespace std;
+
 int main(int argc, char* argv[]) {
 
+    // Root
+    if (geteuid() != 0) {
+        cout << "Run with sudo!\n";
+        return 1;
+    }
+
+    // Usage
     if (argc < 2) {
-        std::cout << "Usage:\n";
-        std::cout << "  zinst [package]\n";
-        std::cout << "  zinst -flatpak [package]\n";
+        cout << "Usage:\n";
+        cout << "  zinst [package]\n";
+        cout << "  zinst -f [package]\n";
         return 1;
     }
 
     bool useFlatpak = false;
-    std::string command;
+    string command;
 
-    int startIndex = 1;
+    // Check flags
+    for (int i = 1; i < argc; i++) {
+        string arg = argv[i];
 
-    // sprawdzenie flagi
-    std::string firstArg = argv[1];
-    if (firstArg == "-flatpak") {
-        useFlatpak = true;
-        startIndex = 2;
-
-        if (argc < 3) {
-            std::cout << "Flatpak package name required.\n";
-            return 1;
+        if (arg == "-f") {
+            useFlatpak = true;
         }
     }
 
-    // budowanie komendy
+    // Check if any package exists
+    bool hasPackage = false;
+    for (int i = 1; i < argc; i++) {
+        string arg = argv[i];
+        if (arg != "-f") {
+            hasPackage = true;
+            break;
+        }
+    }
+
+    if (!hasPackage) {
+        cout << "No package specified!\n";
+        return 1;
+    }
+
+    // Select install method
     if (useFlatpak)
-        command = "sudo flatpak install -y ";
+        command = "flatpak install -y ";
     else
-        command = "sudo apt install -y ";
+        command = "apt install -y ";
 
-    for (int i = startIndex; i < argc; i++) {
-        std::string arg = argv[i];
+    // Add packages
+    for (int i = 1; i < argc; i++) {
+        string arg = argv[i];
 
-        if (arg[0] == '-') {
-            std::cout << "Invalid argument: " << arg << std::endl;
+        if (arg == "-f") continue;
+
+        // Invalid flag
+        if (!arg.empty() && arg[0] == '-') {
+            cout << "Invalid argument: " << arg << endl;
+            return 1;
+        }
+
+        // Security check
+        if (arg.find(';') != string::npos || arg.find('&') != string::npos) {
+            cout << "Invalid characters in package name!\n";
             return 1;
         }
 
         command += arg + " ";
     }
 
-    std::cout << "Installing packages...\n";
+    // Info
+    cout << (useFlatpak ? "Using Flatpak\n" : "Using APT\n");
+    cout << "Installing packages...\n";
     sleep(1);
 
-    int status = std::system(command.c_str());
+    // Execute
+    int status = system(command.c_str());
 
     if (status != 0) {
-        std::cout << "Installation failed! Check package names.\n";
+        cout << "Installation failed!\n";
         return 1;
     }
 
-    std::cout << "Installation complete.\n";
+    cout << "Installation complete.\n";
     return 0;
 }
+
+
+

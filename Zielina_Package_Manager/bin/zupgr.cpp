@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+  //root
     if (geteuid() != 0) {
         cout << "Run with sudo!\n";
         return 1;
@@ -61,7 +62,7 @@ cout << GREEN;
                                                                         ↑                
                                                                            ↑↖            
 )" << endl;
-std::cout << RESET;
+cout << RESET;
 cin >> answer;
 sleep(2);
   
