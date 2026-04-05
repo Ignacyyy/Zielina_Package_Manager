@@ -71,7 +71,7 @@ if(answer == "y" || answer == "Y")
 cout << "updating...\n";
 
 sleep(2);
-system("mkdir -p /ztmp && cd /ztmp && git clone https://github.com/Ignacyyy/Zielina_Package_Manager.git && cd Zielina_Package_Manager && chmod +x INSTALL.sh && ./INSTALL.sh");
+system("mkdir -p /ztmp && cd /ztmp && git clone https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp && cd Zielina_Package_Manager && chmod +x INSTALL.sh && ./INSTALL.sh");
 return 0;
 }
 else
