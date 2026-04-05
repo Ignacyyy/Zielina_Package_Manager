@@ -57,6 +57,12 @@ HOW TO INSTALL
        sudo ./INSTALL.sh
 4. Logout and back in (or reboot).
 
+OR
+
+Install Zielina Package Manager with one command:
+
+sudo apt update && sudo apt upgrade -y && sudo rm -rf /ztmp && sudo apt install git -y && sudo mkdir -p /ztmp && sudo git clone --depth 1 --branch 'main,-APT(debian,ubuntu.)' https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp && cd /ztmp/Zielina_Package_Manager && sudo chmod +x INSTALL.sh && clear && sudo ./INSTALL.sh && sleep 2 && cd ~
+
 INFO
 -----------------------
 Zielina_Package_Manager works on Debian/ubuntu (APT) distros ONLY
