@@ -1,40 +1,170 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <thread>
+#include <chrono>
+#include <mutex>
 #include <cstdlib>
 #include <unistd.h>
 
+using namespace std;
+
+mutex consoleMutex;
+int progressPercent = 0;
+
+const string GREEN  = "\033[32m";
+const string YELLOW = "\033[33m";
+const string RED    = "\033[31m";
+const string RESET  = "\033[0m";
+
+struct PackageResult {
+    string name;
+    string message;
+    bool success;
+};
+
+// Check if package is installed in APT
+bool isInstalledAPT(const string& pkg) {
+    string cmd = "dpkg-query -W -f='${Status}' " + pkg + " 2>/dev/null";
+    FILE* pipe = popen(cmd.c_str(), "r");
+    if (!pipe) return false;
+    char buffer[128];
+    string status = "";
+    if (fgets(buffer, sizeof(buffer), pipe) != nullptr)
+        status = buffer;
+    pclose(pipe);
+    return status.find("install ok installed") != string::npos;
+}
+
+// Check if package is installed in Flatpak
+bool isInstalledFlatpak(const string& pkg) {
+    string cmd = "flatpak list | grep -F \"" + pkg + "\" > /dev/null";
+    return system(cmd.c_str()) == 0;
+}
+
+// Run a command completely silently
+int runSilentCommand(const string& cmd) {
+    string fullCmd = cmd + " > /dev/null 2>&1";
+    int ret = system(fullCmd.c_str());
+    return WEXITSTATUS(ret);
+}
+
+// Progress bar for all packages
+void showProgress(int totalPackages, int& completedPackages) {
+    char spinner[] = {'|','/','-','\\'};
+    int spinIndex = 0;
+    int width = 50;
+    while (completedPackages < totalPackages) {
+        {
+            lock_guard<mutex> lock(consoleMutex);
+            int pos = (progressPercent * width) / 100;
+            cout << "\r" << GREEN
+                 << "Progress: ["
+                 << string(pos,'=')
+                 << string(width - pos,' ')
+                 << "] " << progressPercent << "% "
+                 << spinner[spinIndex]
+                 << RESET << flush;
+        }
+        spinIndex = (spinIndex +1)%4;
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
+    {
+        lock_guard<mutex> lock(consoleMutex);
+        cout << "\r" << GREEN
+             << "Progress: [" << string(width,'=') << "] 100%"
+             << RESET << endl;
+    }
+}
+
 int main(int argc, char* argv[]) {
+    if (geteuid() != 0) {
+        cout << RED << "Run with sudo!\n" << RESET;
+        return 1;
+    }
 
     if (argc < 2) {
-        std::cout << "Usage: zrm [package name]\n";
+        cout << "Usage:\n  zrm [package]\n  zrm -f [package]\n";
         return 1;
     }
 
-    std::string command = "sudo apt remove -y ";
+    bool useFlatpak = false;
+    vector<string> packages;
+    for(int i=1;i<argc;i++){
+        string arg = argv[i];
+        if(arg=="-f") useFlatpak=true;
+        else packages.push_back(arg);
+    }
 
-    for (int i = 1; i < argc; i++) {
-        std::string arg = argv[i];
+    if(packages.empty()){
+        cout << RED << "No package specified!\n" << RESET;
+        return 1;
+    }
 
-        // blokujemy niepoprawne argumenty
-        if (arg[0] == '-') {
-            std::cout << "Invalid argument: " << arg << std::endl;
-            return 1;
+    cout << (useFlatpak? GREEN+"Using Flatpak\n": GREEN+"Using APT\n") << RESET;
+    cout << "Removing packages...\n" << endl;
+
+    int totalPackages = packages.size();
+    int completedPackages = 0;
+    vector<PackageResult> results;
+    bool anyFailed = false;
+
+    thread progressThread(showProgress,totalPackages,ref(completedPackages));
+
+    for(auto& pkg: packages){
+        PackageResult res;
+        res.name = pkg;
+
+        if(useFlatpak){
+            if(!isInstalledFlatpak(pkg)){
+                res.message = YELLOW+"Package "+pkg+" not found."+RESET;
+                res.success=false;
+                anyFailed=true;
+            }else{
+                int status = runSilentCommand("flatpak uninstall -y -q "+pkg);
+                if(status==0){
+                    res.message = GREEN+"Package "+pkg+" removed successfully."+RESET;
+                    res.success=true;
+                }else{
+                    res.message = YELLOW+"Package "+pkg+" removal failed."+RESET;
+                    res.success=false;
+                    anyFailed=true;
+                }
+            }
+        }else{
+            if(!isInstalledAPT(pkg)){
+                res.message = YELLOW+"Package "+pkg+" not found."+RESET;
+                res.success=false;
+                anyFailed=true;
+            }else{
+                int status = runSilentCommand("dpkg --remove "+pkg);
+                if(status==0){
+                    res.message = GREEN+"Package "+pkg+" removed successfully."+RESET;
+                    res.success=true;
+                }else{
+                    res.message = YELLOW+"Package "+pkg+" removal failed."+RESET;
+                    res.success=false;
+                    anyFailed=true;
+                }
+            }
         }
 
-        command += arg + " ";
+        results.push_back(res);
+        completedPackages++;
+        progressPercent = (completedPackages*100)/totalPackages;
     }
 
-    std::cout << "Removing packages...\n";
-    sleep(1);
+    progressPercent=100;
+    progressThread.join();
 
-    int status = std::system(command.c_str());
+    cout << endl;
+    for(auto& r: results)
+        cout << r.message << endl;
 
-    if (status != 0) {
-        std::cout << "Package removal failed! Check package names.\n";
-        return 1;
-    }
-
-    std::cout << "Package removal complete.\n";
+    if(anyFailed)
+        cout << RED << "Removal finished with errors!" << RESET << endl;
+    else
+        cout << RED << "Removal complete!" << RESET << endl;
 
     return 0;
 }

@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 int main() 
-{std::cout << "\033[1;31mZielina Package Manager\033[0m Ver 2.6" << std::endl;
+{std::cout << "\033[1;31mZielina Package Manager\033[0m Ver 2.8" << std::endl;
 // Zielony kolor dla tekstu
 const std::string GREEN = "\033[1;32m"; // jasna zieleń
 const std::string RESET = "\033[0m";    // reset koloru
