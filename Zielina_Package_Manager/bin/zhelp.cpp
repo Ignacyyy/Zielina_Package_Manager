@@ -71,7 +71,7 @@ std::cout << "\033[1mzupgr\033[0m - Zielina Package Manager update, Usage: sudo 
 std::cout << "" << std::endl;
 std::cout << "" << std::endl;
 std::cout << "\033[1;31mAdditional Info:\033[0m" << std::endl;
-std::cout << "zupgr -f (flatpak) -r (reboot) -s (shutdown)" << std::endl;
+std::cout << "zupd -f (flatpak) -r (reboot) -s (shutdown)" << std::endl;
 std::cout << "zinst -f (flatpak)" <<std::endl;
 return 0;
 }
