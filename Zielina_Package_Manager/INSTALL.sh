@@ -6,7 +6,7 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-echo "Zielina Package Manager installer, do you want to continue? [Y,n]"
+echo "Zielina Package Manager installer / Updater, do you want to continue? [Y,n]"
 read -r answer
 
 if [[ "$answer" =~ ^[Yy]$ ]]; then
@@ -43,13 +43,13 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
 
     echo "Linking commands..."
     ln -sf "$PROGRAMS_PATH"/* /usr/bin/
-
+    rm -rf /ztmp
     echo ""
-    echo "Installation finished :)"
+    echo "Installation / Update finished :)"
     echo "Please reboot or log out and log back in for changes to take effect."
     echo ""
     exit 0
 else
-    echo "Installation cancelled."
+    echo "Installation / Update cancelled."
     exit 0
 fi
