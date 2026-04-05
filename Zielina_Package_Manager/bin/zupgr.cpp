@@ -71,7 +71,7 @@ if(answer == "y" || answer == "Y")
 cout << "updating...\n";
 
 sleep(2);
-system("mkdir -p /ztmp && git clone --branch \"main,-APT(debian,ubuntu.)\" https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp/Zielina_Package_Manager && cd /ztmp/Zielina_Package_Manager && chmod +x INSTALL.sh && ./INSTALL.sh");
+system("mkdir -p /ztmp && git clone --branch \"main,-APT(debian,ubuntu.)\" https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp && cd /ztmp/Zielina_Package_Manager && chmod +x INSTALL.sh && ./INSTALL.sh");
 return 0;
 }
 else
