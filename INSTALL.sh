@@ -22,6 +22,7 @@ REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Pack
 
 if [[ "$INSTALLED_VERSION" == "$REMOTE_VERSION" ]]; then
     echo "You already have the latest version ($INSTALLED_VERSION)."
+    rm -rf /ztmp
     exit 0
 else
     echo " Installing / Updating from $INSTALLED_VERSION to $REMOTE_VERSION..."
