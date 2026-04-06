@@ -14,7 +14,8 @@ read -r answer
 
 INSTALLED_VERSION=""
 if [[ -f "/opt/Zielina_Package_Manager/VERSION.txt" ]]; then
-    INSTALLED_VERSION=$(< /opt/Zielina_Package_Manager/VERSION.txt)
+    INSTALLED_VERSION=$(grep -oP '\d+(\.\d+)*' /opt/Zielina_Package_Manager/VERSION.txt)
+REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main/VERSION.txt | grep -oP '\d+(\.\d+)*')
 fi
 
 REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main/VERSION.txt)
