@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 int main() 
-{std::cout << "\033[1;31mZielina Package Manager\033[0m Ver 3,1" << std::endl;
+{std::cout << "\033[1;31mZielina Package Manager\033[0m Ver 3.2" << std::endl;
 //colors
 const std::string GREEN = "\033[1;32m";
 const std::string RESET = "\033[0m";
