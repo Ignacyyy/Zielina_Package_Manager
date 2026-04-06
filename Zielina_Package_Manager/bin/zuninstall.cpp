@@ -13,11 +13,11 @@ const string RESET = "\033[0m";
 const string RED = "\033[31m";
     // Root
     if (geteuid() != 0) {
-        cout << "Run with sudo!\n";
+        cout << RED << "Run with sudo!\n" << RESET;
         return 1;
     }
 string answer;
-cout << RED << "Zielina Package Manager Uninstall program, do you want to continue ?" << RESET; "[y/N]\n";
+cout << RED << "Zielina Package Manager Uninstall program, do you want to continue ?" << RESET; cout << "[y/N]\n";
 
 cout << GREEN;
     
