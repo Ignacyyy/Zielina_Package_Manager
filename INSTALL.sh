@@ -6,6 +6,8 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+rm -rf /ztmp
+
 echo "Zielina Package Manager installer / Updater, do you want to continue? [Y,n]"
 read -r answer
 
