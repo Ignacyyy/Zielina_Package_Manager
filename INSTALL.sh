@@ -9,6 +9,22 @@ fi
 echo "Zielina Package Manager installer / Updater, do you want to continue? [Y,n]"
 read -r answer
 
+
+INSTALLED_VERSION=""
+if [[ -f "/opt/Zielina_Package_Manager/VERSION.txt" ]]; then
+    INSTALLED_VERSION=$(< /opt/Zielina_Package_Manager/VERSION.txt)
+fi
+
+REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main/VERSION.txt)
+
+if [[ "$INSTALLED_VERSION" == "$REMOTE_VERSION" ]]; then
+    echo "You already have the latest version ($INSTALLED_VERSION)."
+    exit 0
+else
+    echo " Installing / Updating from $INSTALLED_VERSION to $REMOTE_VERSION..."
+fi
+
+
 if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Starting installation..."
     sleep 1
