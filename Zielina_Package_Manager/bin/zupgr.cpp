@@ -14,14 +14,16 @@ const string GREEN = "\033[1;32m";
 const string RESET = "\033[0m";    
 const string RED = "\033[31m";
 
-cout << RED << "Zielina Package Manager Updater, do you want to continue ? " << RESET << "[y/N]\n";
-
-
 //root
-    if (geteuid() != 0) {
-        cout << RED << "Run with sudo!\n" << RESET;
-        return 1;
-    }
+if (geteuid() != 0) {
+  cout << RED << "Run with sudo!\n" << RESET;
+  return 1;
+}
+
+cout << RED << "Zielina Package Manager Updater, do you want to continue ? " << RESET << "[Y/n]\n";
+
+
+
 
 cout << GREEN;
     
