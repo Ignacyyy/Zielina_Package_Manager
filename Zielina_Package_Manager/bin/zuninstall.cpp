@@ -6,15 +6,18 @@
 int main() {
 using namespace std;
 
+
+
+const string GREEN = "\033[1;32m";
+const string RESET = "\033[0m";
+const string RED = "\033[31m";
     // Root
     if (geteuid() != 0) {
         cout << "Run with sudo!\n";
         return 1;
     }
 string answer;
-cout << "\033[1mZielina Package Manager Uninstall program, do you want to continue ?\033[0m [y/N]\n";
-const string GREEN = "\033[1;32m"; 
-const string RESET = "\033[0m";    
+cout << RED << "Zielina Package Manager Uninstall program, do you want to continue ?" << RESET; "[y/N]\n";
 
 cout << GREEN;
     

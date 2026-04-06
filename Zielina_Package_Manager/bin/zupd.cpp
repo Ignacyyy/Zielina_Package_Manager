@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 
     // Root check
     if (geteuid() != 0) {
-        cout << RED << "run with sudo!\n" << RESET;
+        cout << RED << "Run with sudo!\n" << RESET;
         return 1;
     }
 
