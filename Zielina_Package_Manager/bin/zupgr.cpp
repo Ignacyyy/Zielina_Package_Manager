@@ -7,15 +7,21 @@ using namespace std;
 
 int main()
 {
-  //root
-    if (geteuid() != 0) {
-        cout << "Run with sudo!\n";
-        return 1;
-    }
+  
 string answer;
-cout << "\033[1mZielina Package Manager Updater, do you want to continue ?\033[0m [y/N]\n";
+
 const string GREEN = "\033[1;32m"; 
 const string RESET = "\033[0m";    
+const string RED = "\033[31m";
+
+cout << RED << "Zielina Package Manager Updater, do you want to continue ? " << RESET << "[y/N]\n";
+
+
+//root
+    if (geteuid() != 0) {
+        cout << RED << "Run with sudo!\n" << RESET;
+        return 1;
+    }
 
 cout << GREEN;
     
@@ -71,7 +77,7 @@ if(answer == "y" || answer == "Y")
 cout << "updating...\n";
 
 sleep(2);
-system("mkdir -p /ztmp && git clone --branch \"main,-APT(debian,ubuntu.)\" https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp && cd /ztmp/Zielina_Package_Manager && chmod +x INSTALL.sh && ./INSTALL.sh");
+system("bash -c 'set -e && mkdir -p /ztmp && git clone --depth 1 --branch \"main,-APT(debian,ubuntu.)\" https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp && cd /ztmp/Zielina_Package_Manager && chmod +x INSTALL.sh && clear && ./INSTALL.sh && cd ~'");
 return 0;
 }
 else
