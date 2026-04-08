@@ -78,7 +78,7 @@ int main() {
 
     cout << endl;
     for(auto& t : tasks)
-        cout << GREEN << "Running '" << t.command << "' done." << RESET << endl;
+        cout << "Running '" << t.command << "' done." << RESET << endl;
 
     cout << RED << "System cleanup complete!" << RESET << endl;
 
