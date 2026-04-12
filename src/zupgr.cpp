@@ -56,6 +56,9 @@ string get_installed_version() {
 void print_banner() {
   const string GREEN = "\033[1;32m";
   const string RESET = "\033[0m";
+  const string RED = "\033[31m";
+
+  cout << RED << "Zielina Package Manager updater program" << RESET << endl;
 
   cout << GREEN;
 
@@ -121,13 +124,13 @@ int main() {
   string current_version = get_installed_version();
   string latest_version = get_latest_version();
 
-  cout << "\n==========================================" << endl;
+  cout << GREEN<< "\n==========================================" << RESET << endl;
   cout << "Installed version: " << current_version << endl;
   cout << "Latest release:    " << latest_version << endl;
-  cout << "==========================================\n" << endl;
+  cout << GREEN << "==========================================\n" << RESET << endl;
 
   if (current_version == latest_version && current_version != "none") {
-    cout << GREEN << "You already have the latest version (" << current_version << ")." << RESET << endl;
+    cout << RED << "You already have the latest version (" << current_version << ")." << RESET << endl;
     return 0;
   }
 
@@ -177,7 +180,7 @@ int main() {
     return 1;
   }
 
-  cout << "Installing Zielina " << latest_version << "..." << endl;
+  cout << "Installing ZPM " << latest_version << "..." << endl;
   string install_cmd = "cd " + extracted_dir + " && chmod +x INSTALL.sh && sudo ./INSTALL.sh";
   system(install_cmd.c_str());
 
