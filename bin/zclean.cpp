@@ -41,7 +41,7 @@ void showProgress(int totalTasks, int& completedTasks) {
     }
     {
         lock_guard<mutex> lock(consoleMutex);
-        cout << "\r" << GREEN
+        cout << "\r\033[2K" << GREEN
              << "Progress: [" << string(width,'=') << "] 100%"
              << RESET << endl;
     }

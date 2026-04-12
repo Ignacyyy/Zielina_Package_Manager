@@ -12,42 +12,59 @@
 
 using namespace std;
 
-// Color codes
 const string GREEN = "\033[32m";
 const string RED = "\033[31m";
 const string YELLOW = "\033[33m";
 const string RESET = "\033[0m";
 mutex progressMutex;
 
-// Run a system command and handle errors
-int runCommand(const string& cmd) {
-    int status = system(cmd.c_str());
-    if (status != 0) {
-        lock_guard<mutex> lock(progressMutex);
-        cerr << RED << "Command failed: " << cmd << RESET << "\n";
-        return 1;
+vector<string> getFlatpakUpdates() {
+    vector<string> updates;
+    FILE* pipe = popen("flatpak remote-ls --updates --columns=application 2>/dev/null", "r");
+    if (!pipe) return updates;
+    char buffer[256];
+    while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
+        string line = buffer;
+        line.erase(line.find_last_not_of(" \n\r\t")+1);
+        if (!line.empty()) updates.push_back(line);
     }
-    return 0;
+    pclose(pipe);
+    return updates;
 }
 
-// Smart progress bar
-void showProgress(atomic<bool>& updateDone) {
-    int progress = 0;
+void fakeProgressThread(atomic<bool>& done, int& progressPercent) {
+    while (progressPercent < 50 && !done) {
+        { lock_guard<mutex> lock(progressMutex); progressPercent++; }
+        this_thread::sleep_for(chrono::milliseconds(30));
+    }
+    while (progressPercent < 70 && !done) {
+        { lock_guard<mutex> lock(progressMutex); progressPercent++; }
+        this_thread::sleep_for(chrono::milliseconds(80));
+    }
+    while (progressPercent < 90 && !done) {
+        { lock_guard<mutex> lock(progressMutex); progressPercent++; }
+        this_thread::sleep_for(chrono::milliseconds(200));
+    }
+    while (!done) {
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
+}
+
+void showProgress(atomic<bool>& updateDone, int& progressPercent) {
     char spinner[] = {'|','/','-','\\'};
+    int spinIndex = 0;
+    int width = 50;
     while (!updateDone.load()) {
         {
             lock_guard<mutex> lock(progressMutex);
-            int width = 50;
-            int pos = (progress * width) / 100;
+            int pos = (progressPercent * width) / 100;
             cout << "\r\033[2K" << GREEN
                  << "Progress: [" << string(pos,'=') << string(width-pos,' ')
-                 << "] " << progress << "% " << spinner[progress % 4]
+                 << "] " << progressPercent << "% " << spinner[spinIndex]
                  << RESET << flush;
         }
-        this_thread::sleep_for(chrono::milliseconds(120));
-        if (progress < 70) progress += 2;
-        else if (progress < 90) progress += 1;
-        else if (progress < 97) progress += 0;
+        spinIndex = (spinIndex + 1) % 4;
+        this_thread::sleep_for(chrono::milliseconds(100));
     }
     {
         lock_guard<mutex> lock(progressMutex);
@@ -57,9 +74,14 @@ void showProgress(atomic<bool>& updateDone) {
     }
 }
 
+int runCommand(const string& cmd) {
+    string fullCmd = cmd + " > /dev/null 2>&1";
+    int status = system(fullCmd.c_str());
+    return WEXITSTATUS(status);
+}
+
 int main(int argc, char* argv[]) {
 
-    // Root check
     if (geteuid() != 0) {
         cout << RED << "Run with sudo!\n" << RESET;
         return 1;
@@ -70,10 +92,9 @@ int main(int argc, char* argv[]) {
     bool doShutdown = false;
     bool doFlatpak = false;
 
-    // Argument parsing
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];
-        if (arg == "-full") doFull = true;
+        if (arg == "-full") { doFull = true; doFlatpak = true; }
         else if (arg == "-f") doFlatpak = true;
         else if (arg == "-r") doReboot = true;
         else if (arg == "-s") doShutdown = true;
@@ -101,18 +122,22 @@ int main(int argc, char* argv[]) {
 
     cout << GREEN << YELLOW << "[SYS]" << GREEN << " " << distro_info << RESET << endl << endl;
 
-    // Upgradable packages
+    // Upgradable APT packages
+    char buffer[128];
     string cmd = "apt list --upgradable 2>/dev/null | tail -n +2 | cut -d'/' -f1";
     FILE* pipe = popen(cmd.c_str(), "r");
-    vector<string> packages;
-    char buffer[128];
+    vector<string> aptPackages;
     while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
         string line = buffer;
         line.erase(line.find_last_not_of(" \n\r\t")+1);
-        if (!line.empty()) packages.push_back(line);
+        if (!line.empty()) aptPackages.push_back(line);
     }
     pclose(pipe);
-    bool hasPackages = !packages.empty();
+
+    bool hasAptUpdates = !aptPackages.empty();
+    vector<string> flatpakPackages = getFlatpakUpdates();
+    bool hasFlatpakUpdates = !flatpakPackages.empty();
+    bool hasAnyUpdates = hasAptUpdates || (doFlatpak && hasFlatpakUpdates);
 
     // Repositories
     cout << GREEN << YELLOW << "[D]" << GREEN << " Active Repositories:" << RESET << endl;
@@ -129,7 +154,7 @@ int main(int argc, char* argv[]) {
     pclose(repo_pipe);
     if (!has_repos) cout << "  No repositories found" << endl;
 
-    // Flatpak
+    // Flatpak remotes
     if (system("which flatpak >/dev/null 2>&1") == 0) {
         cout << endl << GREEN << YELLOW << "[F]" << GREEN << " Flatpak:" << RESET << endl;
         FILE* flatpak_pipe = popen("flatpak remotes --columns=name 2>/dev/null", "r");
@@ -146,70 +171,85 @@ int main(int argc, char* argv[]) {
         if (!has_flatpak_repos) cout << "    No Flatpak repositories found" << endl;
     }
 
-    // Snap
-    if (system("which snap >/dev/null 2>&1") == 0) {
-       cout << endl << GREEN << YELLOW << "[S]" << GREEN << " Snap:" << RESET << endl;
-        FILE* snap_pipe = popen("snap list 2>/dev/null | tail -n +2 | awk '{print $1}' | head -5", "r");
-        bool has_snap_installed = false;
-        while (fgets(buffer, sizeof(buffer), snap_pipe) != nullptr) {
-            string line = buffer;
-            line.erase(line.find_last_not_of(" \n\r\t")+1);
-            if (!line.empty()) {
-                cout << "    " << YELLOW << "-" << RESET << " " << line << endl;
-                has_snap_installed = true;
-            }
-        }
-        pclose(snap_pipe);
-        if (!has_snap_installed) cout << "    " << YELLOW << "-" << RESET << " Snap Store (default)" << endl;
-    }
-
     cout << endl;
 
-    // Progress bar
-    cout << "Updating system...\n" << endl;
-    atomic<bool> updateDone(false);
-    thread progressThread(showProgress, ref(updateDone));
+    // List APT
+    if (hasAptUpdates) {
+        cout << GREEN << YELLOW << "[+]" << GREEN << " APT packages to update: (" << aptPackages.size() << ")" << RESET << endl;
+        for (auto &pkg : aptPackages) cout << "  [+] " << pkg << endl;
+        cout << endl;
+    }
 
-    // List packages
-    if (hasPackages) {
-        cout << GREEN << YELLOW << "[+]" << GREEN << " Packages to update: (" << packages.size() << ")" << RESET << endl;
-        for (auto &pkg : packages) cout << "  [+] " << pkg << endl;
+    // List Flatpak
+    if (doFlatpak && hasFlatpakUpdates) {
+        cout << GREEN << YELLOW << "[+]" << GREEN << " Flatpak packages to update: (" << flatpakPackages.size() << ")" << RESET << endl;
+        for (auto &pkg : flatpakPackages) cout << "  [+] " << pkg << endl;
+        cout << endl;
+    }
+
+    // System up to date?
+    if (!hasAnyUpdates) {
+        cout << RED << "System is up to date." << RESET << endl;
+        if (!doFlatpak && hasFlatpakUpdates)
+            cout << YELLOW << "Flatpak updates available, run with -f to update." << RESET << endl;
         cout << endl;
     } else {
-        cout << RED << "System is up to date." << RESET << endl << endl;
+        cout << "Updating system..." << endl;
+        if (hasAptUpdates && doFlatpak && hasFlatpakUpdates)
+            cout << RED << "Using APT + Flatpak" << RESET << endl;
+        else if (hasAptUpdates)
+            cout << RED << "Using APT" << RESET << endl;
+        else
+            cout << RED << "Using Flatpak" << RESET << endl;
+        cout << endl;
     }
 
-    // Update with error checking
-    bool updateSuccess = true; // flaga sukcesu
+    // Progress + update
+    int progressPercent = 0;
+    atomic<bool> updateDone(false);
+    thread progressThread(showProgress, ref(updateDone), ref(progressPercent));
 
-    if (!doFlatpak && hasPackages) {
+    bool updateSuccess = true;
+
+    if (hasAptUpdates) {
+        atomic<bool> done(false);
+        thread fakeThread(fakeProgressThread, ref(done), ref(progressPercent));
+
         int status;
-        if (doFull) status = runCommand("apt update -qq >/dev/null 2>&1 && apt full-upgrade -y -qq >/dev/null 2>&1");
-        else status = runCommand("apt update -qq >/dev/null 2>&1 && apt upgrade -y -qq >/dev/null 2>&1");
+        if (doFull) status = runCommand("apt update -qq && apt full-upgrade -y -qq");
+        else        status = runCommand("apt update -qq && apt upgrade -y -qq");
         if (status != 0) updateSuccess = false;
 
-        status = runCommand("apt autoremove -y -qq >/dev/null 2>&1");
-        if (status != 0) updateSuccess = false;
+        runCommand("apt autoremove -y -qq");
+
+        done = true;
+        fakeThread.join();
+        progressPercent = 100;
     }
 
-    if ((doFlatpak || doFull) && hasPackages) {
-        int status = runCommand("flatpak update -y --noninteractive >/dev/null 2>&1");
+    if (doFlatpak && hasFlatpakUpdates) {
+        progressPercent = 0;
+        atomic<bool> done(false);
+        thread fakeThread(fakeProgressThread, ref(done), ref(progressPercent));
+
+        int status = runCommand("flatpak update -y --noninteractive");
         if (status != 0) updateSuccess = false;
+
+        done = true;
+        fakeThread.join();
+        progressPercent = 100;
     }
 
-    // Stop progress bar
     updateDone = true;
     progressThread.join();
 
-    // Show final message based on success
-    if (hasPackages) {
+    if (hasAnyUpdates) {
         if (updateSuccess)
             cout << GREEN << "Update complete successfully." << RESET << "\n";
         else
-            cout << RED << "Update finished with errors. Check above messages." << RESET << "\n";
+            cout << RED << "Update finished with errors." << RESET << "\n";
     }
 
-    // Reboot/shutdown
     if (doReboot) {
         cout << RED << "System reboot..." << RESET << endl;
         this_thread::sleep_for(chrono::seconds(3));
