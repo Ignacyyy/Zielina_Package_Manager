@@ -11,14 +11,19 @@ fi
 echo "Zielina Package Manager installer / Updater, do you want to continue? [Y,n]"
 read -r answer
 
+BRANCH="main,-APT(debian,ubuntu.)"
+
+
+REMOTE_VERSION=$(curl -s "https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/${BRANCH}/VERSION.txt" | grep -oP '\d+(\.\d+)*')
+
 
 INSTALLED_VERSION=""
 if [[ -f "/opt/Zielina_Package_Manager/VERSION.txt" ]]; then
     INSTALLED_VERSION=$(grep -oP '\d+(\.\d+)*' /opt/Zielina_Package_Manager/VERSION.txt)
-REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main/VERSION.txt | grep -oP '\d+(\.\d+)*')
 fi
 
-REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main/VERSION.txt)
+echo "Zainstalowana: $INSTALLED_VERSION"
+echo "Zdalna: $REMOTE_VERSION"
 
 if [[ "$INSTALLED_VERSION" == "$REMOTE_VERSION" ]]; then
     echo "You already have the latest version ($INSTALLED_VERSION)."
