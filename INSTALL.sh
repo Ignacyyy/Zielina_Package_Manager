@@ -17,7 +17,7 @@ BRANCH="Testing"
 REMOTE_VERSION=$(curl -s "https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/${BRANCH}/VERSION.txt" | grep -oP '\d+(\.\d+)*')
 
 
-INSTALLED_VERSION=""
+INSTALLED_VERSION="/opt/ZPM/VERSION.txt"
 if [[ -f "/opt/Zielina_Package_Manager/VERSION.txt" ]]; then
     INSTALLED_VERSION=$(grep -oP '\d+(\.\d+)*' /opt/Zielina_Package_Manager/VERSION.txt)
 fi
