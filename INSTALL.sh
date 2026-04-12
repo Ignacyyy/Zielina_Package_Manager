@@ -44,8 +44,8 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
 
     # Target locations
     TARGET_FOLDER="/opt/Zielina_Package_Manager"
-    PROGRAMS_PATH="$TARGET_FOLDER/programs"
-    BIN_PATH="$TARGET_FOLDER/bin"
+    PROGRAMS_PATH="$TARGET_FOLDER/bin"
+    SRC_PATH="$TARGET_FOLDER/src"
     PROFILE_SCRIPT="/etc/profile.d/Zielina_Package_Manager.sh"
 
     # Move folder
@@ -62,7 +62,7 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
 
     # Add programs folder to PATH globally for all users including sudo
     echo "Adding programs folder to global PATH..."
-    echo "export PATH=\"\$PATH:$PROGRAMS_PATH:$BIN_PATH\"" > "$PROFILE_SCRIPT"
+    echo "export PATH=\"\$PATH:$PROGRAMS_PATH:$SRC_PATH\"" > "$PROFILE_SCRIPT"
     chmod +x "$PROFILE_SCRIPT"
     sleep 1
 
