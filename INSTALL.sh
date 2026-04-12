@@ -11,14 +11,19 @@ fi
 echo "Zielina Package Manager installer / Updater, do you want to continue? [Y,n]"
 read -r answer
 
+BRANCH="Testing"
+
+
+REMOTE_VERSION=$(curl -s "https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/${BRANCH}/VERSION.txt" | grep -oP '\d+(\.\d+)*')
+
 
 INSTALLED_VERSION=""
 if [[ -f "/opt/Zielina_Package_Manager/VERSION.txt" ]]; then
     INSTALLED_VERSION=$(grep -oP '\d+(\.\d+)*' /opt/Zielina_Package_Manager/VERSION.txt)
-REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main/VERSION.txt | grep -oP '\d+(\.\d+)*')
 fi
 
-REMOTE_VERSION=$(curl -s https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main/VERSION.txt)
+echo "INSTALLED VERSION: $INSTALLED_VERSION"
+echo "REPO VERSION: $REMOTE_VERSION"
 
 if [[ "$INSTALLED_VERSION" == "$REMOTE_VERSION" ]]; then
     echo "You already have the latest version ($INSTALLED_VERSION)."
@@ -39,8 +44,8 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
 
     # Target locations
     TARGET_FOLDER="/opt/Zielina_Package_Manager"
-    PROGRAMS_PATH="$TARGET_FOLDER/bin"
-    SRC_PATH="$TARGET_FOLDER/src"
+    PROGRAMS_PATH="$TARGET_FOLDER/programs"
+    BIN_PATH="$TARGET_FOLDER/bin"
     PROFILE_SCRIPT="/etc/profile.d/Zielina_Package_Manager.sh"
 
     # Move folder
@@ -52,12 +57,12 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
     # Set executable permissions
     echo "Setting executable permissions..."
     chmod -R +x "$PROGRAMS_PATH"
-    chmod -R +x "$SRC_PATH"
+    chmod -R +x "$BIN_PATH"
     sleep 1
 
     # Add programs folder to PATH globally for all users including sudo
     echo "Adding programs folder to global PATH..."
-    echo "export PATH=\"\$PATH:$PROGRAMS_PATH:$SRC_PATH\"" > "$PROFILE_SCRIPT"
+    echo "export PATH=\"\$PATH:$PROGRAMS_PATH:$BIN_PATH\"" > "$PROFILE_SCRIPT"
     chmod +x "$PROFILE_SCRIPT"
     sleep 1
 
