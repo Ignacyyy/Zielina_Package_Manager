@@ -43,14 +43,14 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Source Folder: $INSTALL_FOLDER"
 
     # Target locations
-    TARGET_FOLDER="/opt/Zielina_Package_Manager"
+    TARGET_FOLDER="/opt/ZPM"
     PROGRAMS_PATH="$TARGET_FOLDER/bin"
     SRC_PATH="$TARGET_FOLDER/src"
-    PROFILE_SCRIPT="/etc/profile.d/Zielina_Package_Manager.sh"
+    PROFILE_SCRIPT="/etc/profile.d/ZPM.sh"
 
     # Move folder
     echo "Moving Zielina_Package_Manager to $TARGET_FOLDER..."
-    rm -rf "$TARGET_FOLDER"          # usuń jeśli istnieje
+    rm -rf "$TARGET_FOLDER"          # remove if exist
     mv "$INSTALL_FOLDER" "$TARGET_FOLDER"
     sleep 1
 
