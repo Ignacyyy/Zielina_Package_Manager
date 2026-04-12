@@ -71,9 +71,14 @@ sleep(2);
 if(answer == "y" || answer == "Y")
 {
 cout << "uninstaling...\n";
-system("find /usr/bin -type l -lname '/opt/ZPM/*' -delete");
-system("rm -rf /etc/profile.d/ZPM.sh");
-system("rm -rf /opt/ZPM");
+
+system("sudo rm -f /usr/bin/z*");
+system("sudo rm -f /bin/z*");
+system("rm -f ~/bin/z* 2>/dev/null");
+system("sudo rm -rf /opt/ZPM");
+system("sudo rm -rf /opt/Zielina_Package_Manager");
+system("sudo rm -f /etc/profile.d/ZPM.sh");
+system("sudo rm -f /etc/profile.d/Zielina_Package_Manager.sh");
 
 sleep (2);
 cout << "...done\n";
