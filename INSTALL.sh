@@ -22,8 +22,8 @@ if [[ -f "/opt/Zielina_Package_Manager/VERSION.txt" ]]; then
     INSTALLED_VERSION=$(grep -oP '\d+(\.\d+)*' /opt/Zielina_Package_Manager/VERSION.txt)
 fi
 
-echo "Zainstalowana: $INSTALLED_VERSION"
-echo "Zdalna: $REMOTE_VERSION"
+echo "INSTALLED VERSION: $INSTALLED_VERSION"
+echo "REPO VERSION: $REMOTE_VERSION"
 
 if [[ "$INSTALLED_VERSION" == "$REMOTE_VERSION" ]]; then
     echo "You already have the latest version ($INSTALLED_VERSION)."
