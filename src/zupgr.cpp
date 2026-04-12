@@ -1,0 +1,90 @@
+#include <iostream>
+#include <cstdlib>
+#include <unistd.h>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+  
+string answer;
+
+const string GREEN = "\033[1;32m"; 
+const string RESET = "\033[0m";    
+const string RED = "\033[31m";
+
+//root
+if (geteuid() != 0) {
+  cout << RED << "Run with sudo!\n" << RESET;
+  return 1;
+}
+
+cout << RED << "Zielina Package Manager Updater, do you want to continue ? " << RESET << "[Y/n]\n";
+
+
+
+
+cout << GREEN;
+    
+ cout << R"(    
+  
+
+                               ↑                                                         
+                               ↑↑                                                        
+                               ↖↑↙←                       ↑                              
+                               ↑↖↙↖↘↖                     ↑                              
+                               ↗↙↑↑↙↑↑←                 ↖↑←                              
+                               →↖↖↓↑↖↑↓↑              →↑↑↑                               
+                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←                               
+                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑                               
+                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑                            
+                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑                            
+                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←                            
+                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙                           
+                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←                           
+               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→                           
+                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←                           
+                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑                           
+                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓                           
+                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→                           
+                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘                           
+                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑                            
+                                              ↑    ←→↗↖←↘↖↘←↓                            
+                                               ↑   ←↖↖←↗↖↖↗↘                             
+                                                ↘  ←→←↖↓↗↙→                              
+                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→                               
+                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑                                
+                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗                                  
+                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖                                   
+                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑                                   
+                                  →→↙↓↘↓←↙↘↗↙          ↖                                 
+                                                        ↑                                
+                                                                                         
+                                                           ↑                             
+                                                            ↑                            
+                                                              ↑                          
+                                                                ↑↖                       
+                                                                   ↑                     
+                                                                     ↑                   
+                                                                        ↑                
+                                                                           ↑↖            
+)" << endl;
+cout << RESET;
+cin >> answer;
+sleep(2);
+  
+if(answer == "y" || answer == "Y")
+{
+cout << "updating...\n";
+
+sleep(2);
+system("bash -c 'set -e && mkdir -p /ztmp && git clone --depth 1 --branch \"main,-APT(debian,ubuntu.)\" https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp && cd /ztmp && chmod +x INSTALL.sh && clear && ./INSTALL.sh && cd ~'");
+return 0;
+}
+else
+{
+cout << "Update canceled\n";
+return 0;
+}
+}

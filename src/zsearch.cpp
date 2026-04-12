@@ -1,0 +1,90 @@
+#include <iostream>
+#include <cstdio>
+#include <string>
+#include <algorithm>
+#include <unistd.h>
+
+// colors
+const std::string GREEN = "\033[1;32m";
+const std::string YELLOW = "\033[1;33m";
+const std::string RED = "\033[1;31m";
+const std::string RESET = "\033[0m";
+
+// lowercase
+std::string toLower(std::string str) {
+    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+    return str;
+}
+
+// highlight
+std::string highlight(const std::string& text, const std::string& query) {
+    std::string lowerText = toLower(text);
+    std::string lowerQuery = toLower(query);
+
+    size_t pos = lowerText.find(lowerQuery);
+    if (pos == std::string::npos) return text;
+
+    return text.substr(0, pos) +
+    YELLOW + text.substr(pos, query.length()) + RESET +
+    text.substr(pos + query.length());
+}
+
+int main(int argc, char* argv[]) {
+
+    if (argc < 2) {
+        std::cout << "Usage: zsearch [query]\n";
+        return 1;
+    }
+
+    std::string query;
+    for (int i = 1; i < argc; i++) {
+        std::string arg = argv[i];
+
+        if (arg.find(';') != std::string::npos ||
+            arg.find('&') != std::string::npos ||
+            arg.find('|') != std::string::npos) {
+            std::cout << RED << "Invalid characters!\n" << RESET;
+        return 1;
+            }
+
+            query += arg + " ";
+    }
+
+    std::string command = "apt-cache search " + query;
+
+    FILE* pipe = popen(command.c_str(), "r");
+    if (!pipe) {
+        std::cerr << RED << "Error running apt\n" << RESET;
+        return 1;
+    }
+
+    std::cout << GREEN << "🔍 Searching: " << RESET << query << "\n\n";
+
+    char buffer[256];
+    int count = 0;
+
+    while (fgets(buffer, sizeof(buffer), pipe)) {
+        std::string line(buffer);
+
+        size_t dash = line.find(" - ");
+        if (dash != std::string::npos) {
+
+            std::string name = line.substr(0, dash);
+            std::string desc = line.substr(dash + 3);
+
+            name = highlight(name, query);
+            desc = highlight(desc, query);
+
+            std::cout << GREEN << "[+]" << RESET << " " << name << "\n";
+            std::cout << "    " << desc;
+
+            count++;
+        }
+    }
+
+    pclose(pipe);
+
+    std::cout << "\n" << GREEN << "✔ Found: " << count << " packages\n" << RESET;
+
+    return 0;
+}
