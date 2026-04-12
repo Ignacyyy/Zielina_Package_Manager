@@ -50,7 +50,7 @@ HOW TO INSTALL
 ---------------
 
 Method 1 (Recommended - one line):
-    sudo apt update && sudo apt upgrade -y && sudo apt install git curl wget -y && wget https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/1.0.tar.gz && tar -xzf 1.0.tar.gz && cd Zielina_Package_Manager-1.0 && sudo chmod +x INSTALL.sh && sudo ./INSTALL.sh && cd ~
+    sudo apt update && sudo apt upgrade -y && sudo apt install git curl wget -y && wget https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/v1.0.tar.gz && tar -xzf v1.0.tar.gz && cd Zielina_Package_Manager-1.0 && sudo chmod +x INSTALL.sh && sudo ./INSTALL.sh && cd ~
 
 Method 2 (Manual):
     1. Open terminal.
