@@ -50,15 +50,15 @@ HOW TO INSTALL
 ---------------
 
 Method 1 (Recommended - one line):
-    sudo apt update && sudo apt upgrade -y && sudo apt install git curl wget -y && wget https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/v1.0.tar.gz && tar -xzf v1.0.tar.gz && cd Zielina_Package_Manager-1.0 && sudo chmod +x INSTALL.sh && sudo ./INSTALL.sh && cd ~
+
+    sudo apt update && sudo apt install git curl wget -y && LATEST=$(curl -s https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest | grep '"tag_name"' | sed 's/.*"\(v[0-9.]*\)".*/\1/') && wget --no-cache "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/${LATEST}.tar.gz" && tar -xzf ${LATEST}.tar.gz && cd Zielina_Package_Manager-* && sudo chmod +x INSTALL.sh && sudo ./INSTALL.sh && cd ~
 
 Method 2 (Manual):
+
     1. Open terminal.
-    2. Download latest release (1.0):
-       wget https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/1.0.tar.gz
-       tar -xzf 1.0.tar.gz
-       cd Zielina_Package_Manager-1.0
-    3. Run installer:
+    2. Download latest release:
+    4. go to ZMP folder eg. ~/ZPM
+    3. Run installer
        sudo chmod +x INSTALL.sh
        sudo ./INSTALL.sh
     4. Logout and back in (or reboot).
