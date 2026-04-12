@@ -67,6 +67,7 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
     sleep 1
 
     echo "Linking commands..."
+    rm -f /usr/bin/z*
     ln -sf "$PROGRAMS_PATH"/* /usr/bin/
     rm -rf /ztmp
     echo ""
