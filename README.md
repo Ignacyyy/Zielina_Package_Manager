@@ -1,4 +1,4 @@
- Zielina Package Manager
+Zielina Package Manager
 
                                ↑
                                ↑↑
@@ -98,9 +98,3 @@ DEPENDENCIES
     curl
     wget
     sudo
-
-VERSIONING
----------------
-    This project uses GitHub Releases. Current release: 1.0
-    To check latest version:
-    curl -s https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest | grep tag_name
