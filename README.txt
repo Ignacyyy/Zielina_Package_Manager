@@ -1,5 +1,4 @@
-Zielina Package Manager
-
+# Zielina Package Manager
 
                                ↑
                                ↑↑
@@ -49,25 +48,59 @@ after successful installation.
 
 HOW TO INSTALL
 ---------------
-1. Open terminal.
-2. Navigate to the Zielina_Package_Manager folder, e.g.:
-       ~/Zielina_Package_Manager
-3. Run the installer command:
-    sudo chmod +x INSTALL.sh
+
+Method 1 (Recommended - one line):
+    sudo apt update && sudo apt upgrade -y && sudo apt install git curl wget -y && wget https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/1.0.tar.gz && tar -xzf 1.0.tar.gz && cd Zielina_Package_Manager-1.0 && sudo chmod +x INSTALL.sh && sudo ./INSTALL.sh && cd ~
+
+Method 2 (Manual):
+    1. Open terminal.
+    2. Download latest release (1.0):
+       wget https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/1.0.tar.gz
+       tar -xzf 1.0.tar.gz
+       cd Zielina_Package_Manager-1.0
+    3. Run installer:
+       sudo chmod +x INSTALL.sh
        sudo ./INSTALL.sh
-4. Logout and back in (or reboot).
+    4. Logout and back in (or reboot).
 
-OR
+HOW TO UPDATE
+---------------
+    sudo zupgr
 
-Install Zielina Package Manager with one command:
+HOW TO UNINSTALL
+---------------
+    sudo zuninstall
 
-sudo apt update && sudo apt upgrade -y && sudo rm -rf /ztmp && sudo apt install git -y && sudo mkdir -p /ztmp && sudo git clone --depth 1 --branch 'main,-APT(debian,ubuntu.)' https://github.com/Ignacyyy/Zielina_Package_Manager.git /ztmp && cd /ztmp && sudo chmod +x INSTALL.sh && clear && sudo ./INSTALL.sh && sleep 2 && cd ~
+COMMANDS
+---------------
+    zhelp       - Display help message
+    zinst       - Install package
+    zrm         - Remove package
+    zupgr       - Update Zielina Package Manager
+    zupd        - Update system packages
+    zlist       - List installed packages
+    zsearch     - Search for package
+    zclean      - Clean package cache
+    zr          - Reboot system
+    zs          - Shutdown system
+    zuninstall  - Uninstall Zielina
 
 INFO
------------------------
-Zielina_Package_Manager works on Debian/ubuntu (APT) distros ONLY
+---------------
+    Works on: Debian/Ubuntu (APT) distros ONLY
+    Installation path: /opt/ZPM
+    Commands location: /usr/bin/z* (symbolic links)
+    Current version: 1.0
 
 DEPENDENCIES
-------------------------------------------
-git
+---------------
+    git
+    curl
+    wget
+    sudo
 
+VERSIONING
+---------------
+    This project uses GitHub Releases. Current release: 1.0
+    To check latest version:
+    curl -s https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest | grep tag_name
