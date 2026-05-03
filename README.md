@@ -78,21 +78,23 @@ COMMANDS
     zhelp       - Display help message
     zinst       - Install package
     zrm         - Remove package
-    zupgr       - Update Zielina Package Manager
+    zupgr       - Update ZMP
     zupd        - Update system packages
     zlist       - List installed packages
     zsearch     - Search for package
     zclean      - Clean package cache
     zr          - Reboot system
     zs          - Shutdown system
-    zuninstall  - Uninstall Zielina
+    zuninstall  - Uninstall ZMP
+    zinfo       - Package information
+    
 
 INFO
 ---------------
     Works on: Debian/Ubuntu (APT) distros ONLY
     Installation path: /opt/ZPM
     Commands location: /usr/bin/z* (symbolic links)
-    Current version: 1.0
+    Current version: 1.1
 
 DEPENDENCIES
 ---------------
