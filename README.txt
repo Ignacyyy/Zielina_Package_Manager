@@ -1,4 +1,4 @@
- Zielina Package Manager
+Zielina Package Manager
 
                                ↑
                                ↑↑
@@ -51,7 +51,9 @@ HOW TO INSTALL
 
 Method 1 (Recommended - one line):
 
-    sudo apt update && sudo apt install git curl wget -y && LATEST=$(curl -s https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest | grep '"tag_name"' | head -1 | cut -d '"' -f4) && VERSION=${LATEST#v} && wget --no-cache "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/${LATEST}.tar.gz" && tar -xzf ${LATEST}.tar.gz && cd "Zielina_Package_Manager-${VERSION}" && sudo chmod +x INSTALL.sh && sudo bash ./INSTALL.sh && cd ~
+   ```bash
+sudo apt update && sudo apt install git curl wget -y && LATEST=$(curl -s https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest | grep '"tag_name"' | head -1 | cut -d '"' -f4) && VERSION=${LATEST#v} && wget --no-cache "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/${LATEST}.tar.gz" && tar -xzf ${LATEST}.tar.gz && cd "Zielina_Package_Manager-${VERSION}" && sudo chmod +x INSTALL.sh && sudo bash ./INSTALL.sh && cd ~
+```
 
 Method 2 (Manual):
 
@@ -76,21 +78,23 @@ COMMANDS
     zhelp       - Display help message
     zinst       - Install package
     zrm         - Remove package
-    zupgr       - Update Zielina Package Manager
+    zupgr       - Update ZMP
     zupd        - Update system packages
     zlist       - List installed packages
     zsearch     - Search for package
     zclean      - Clean package cache
     zr          - Reboot system
     zs          - Shutdown system
-    zuninstall  - Uninstall Zielina
+    zuninstall  - Uninstall ZMP
+    zinfo       - Package information
+    
 
 INFO
 ---------------
     Works on: Debian/Ubuntu (APT) distros ONLY
     Installation path: /opt/ZPM
     Commands location: /usr/bin/z* (symbolic links)
-    Current version: 1.0
+    Current version: 1.1
 
 DEPENDENCIES
 ---------------
