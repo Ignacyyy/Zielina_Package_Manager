@@ -1,0 +1,113 @@
+// Compile: g++ -O2 -o zuninstall zuninstall.cpp
+
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <unistd.h>
+
+using namespace std;
+
+const string GREEN = "\033[1;32m";
+const string YELLOW = "\033[33m";
+const string RESET = "\033[0m";
+const string RED   = "\033[31m";
+
+void print_banner() {
+    cout << GREEN;
+    cout << R"(
+
+
+                               ↑
+                               ↑↑
+                               ↖↑↙←                       ↑
+                               ↑↖↙↖↘↖                     ↑
+                               ↗↙↑↑↙↑↑←                 ↖↑←
+                               →↖↖↓↑↖↑↓↑              →↑↑↑
+                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←
+                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑
+                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑
+                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑
+                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←
+                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙
+                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←
+               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→
+                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←
+                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑
+                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓
+                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→
+                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘
+                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑
+                                              ↑    ←→↗↖←↘↖↘←↓
+                                               ↑   ←↖↖←↗↖↖↗↘
+                                                ↘  ←→←↖↓↗↙→
+                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→
+                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑
+                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗
+                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖
+                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑
+                                  →→↙↓↘↓←↙↘↗↙          ↖
+                                                        ↑
+
+                                                           ↑
+                                                            ↑
+                                                              ↑
+                                                                ↑↖
+                                                                   ↑
+                                                                     ↑
+                                                                        ↑
+                                                                           ↑↖
+)" << RESET << "\n";
+}
+
+static void run(const char* cmd) {
+    (void)system(cmd);
+}
+
+int main(int argc, char* argv[]) {
+    for (int i = 1; i < argc; ++i) {
+        string arg = argv[i];
+        if (arg == "--version" || arg == "-v") {
+            cout << RED << "zuninstall component version: 1.0 of ZPM\n" << RESET;
+            cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+            cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
+            return 0;
+        }
+        if (arg == "--help" || arg == "-h") {
+            cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+            cout << RED << "Options:\n" << RESET;
+            cout << "  --version, -v  Show version information\n";
+            cout << "  --help,    -h  Show this help message\n\n";
+            cout << "Removes all ZPM binaries and data from the system.\n";
+            return 0;
+        }
+    }
+
+    if (geteuid() != 0) {
+        cout << RED << "Run with sudo!\n" << RESET;
+        return 1;
+    }
+
+    print_banner();
+
+    cout << RED << "Zielina Package Manager Uninstall program\n" << RESET;
+    cout << "Do you want to continue? [y/N]: ";
+
+    string answer;
+    getline(cin, answer);
+
+    if (answer != "y" && answer != "Y") {
+        cout << YELLOW << "Uninstall canceled.\n" << RESET;
+        return 0;
+    }
+
+    cout << "Uninstalling...\n";
+
+    run("rm -rf /opt/ZPM 2>/dev/null");
+    run("rm -rf /opt/Zielina_Package_Manager 2>/dev/null");
+    run("rm -f /etc/profile.d/ZPM.sh /etc/profile.d/Zielina_Package_Manager.sh 2>/dev/null");
+    run("rm -f /usr/local/bin/z*");
+    run("rm -f /usr/bin/z*");
+
+    cout << GREEN << "Done. ZPM has been removed.\n" << RESET;
+    return 0;
+}
