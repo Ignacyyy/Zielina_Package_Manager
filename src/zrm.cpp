@@ -424,12 +424,28 @@ int main(int argc, char* argv[]) {
     }
 
     if(showVersion && showHelp){
-        cout << RED << "Error: Invalid arguments, can't use -r and -s together, or can't use --help and --version with any other options!" << RESET << endl;
-        return 1;
+        cout << YELLOW << "--help" << RESET << endl;
+        cout << RED << "zrm component version: 1.1 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
+        cout << "" << endl;
+        cout << YELLOW << "--help" << RESET << endl;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  (auto)         Picks APT / Flatpak / Snap per package\n";
+        cout << "  --purge, -p    APT purge instead of remove\n";
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n";
+        return 0;
+    }
+    if (purge && showVersion || purge && showHelp)
+    {
+        cout << RED << "Error: -p are mutually exclusive. " << endl; cout << "--help and --version cannot be combined with other options." << RESET << endl;
+        return 0;
     }
 
     if (showVersion) {
-        cout << RED << "zrm component version: 1.0 of ZPM\n" << RESET;
+        cout << RED << "zrm component version: 1.1 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;

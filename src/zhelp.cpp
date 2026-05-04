@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 int main() 
-{std::cout << "\033[1;31mZielina Package Manager\033[0m v1.1" << std::endl;
+{std::cout << "\033[1;31mZielina Package Manager\033[0m v1.2" << std::endl;
 //colors
 const std::string GREEN = "\033[1;32m";
 const std::string RESET = "\033[0m";
@@ -57,15 +57,15 @@ std::cout << GREEN;
 std::cout << RESET; // color reset
 std::cout << "\033[1;31mOptions:\033[0m" << std::endl;
 std::cout << "\033[1mzhelp\033[0m - Display this help message, Usage: zhelp" << std::endl;
-std::cout << "\033[1mzupd\033[0m - Update package, Usage: zupd or zupd -full...(etc.), Agr -full, -r, -s, --help, -h --version -v" << std::endl;
+std::cout << "\033[1mzupd\033[0m - Update package, Usage: zupd or zupd -full...(etc.), Agr -full, -r, -s, --help, -h --version -v, --yes, -y" << std::endl;
 std::cout << "\033[1mzinst\033[0m - Install package, Usage: zinst [package name], Agr --help, h, --version, -v" << std::endl;
 std::cout << "\033[1mzrm\033[0m - Remove package, Usage: zrm [package name], Agr -p, --help, -h, --version, -v" << std::endl;
 std::cout << "\033[1mzlist\033[0m - List all packages, Usage: zlist, Arg --help, -h, --version, -v" << std::endl;
 std::cout << "\033[1mzsearch\033[0m - Search for a package, Usage: zsearch [package name], Arg --help, -h, --version, -v" << std::endl;
 std::cout << "\033[1mzinfo\033[0m - Get package information, Usage: zinfo [package name], Arg --help, -h, --version, -v " << std::endl;
 std::cout << "\033[1mzuninstall\033[0m - Uninstall Zielina_Package_Manager, Usage: sudo zuninstall, Arg --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzr\033[0m - System reboot, Usage: sudo zr, Arg --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzs\033[0m - System Shutdown, Usage sudo zs, Arg --help, -h, --version, -v" <<std::endl;
+std::cout << "\033[1mzr\033[0m - System reboot, Usage: sudo zr, Arg --help, -h, --version, -v, --yes, -y" << std::endl;
+std::cout << "\033[1mzs\033[0m - System Shutdown, Usage sudo zs, Arg --help, -h, --version, -v, --yes, -y" <<std::endl;
 std::cout << "\033[1mzclean\033[0m - System package/cache cleaning, Usage: zclean, Arg --help, -h, --version, -v" << std::endl;
 std::cout << "\033[1mzupgr\033[0m - Zielina Package Manager update, Usage: sudo zupgr, Arg --help, -h, --version, -v" <<std::endl;
 std::cout << "" << std::endl;
@@ -73,5 +73,6 @@ std::cout << "" << std::endl;
 std::cout << "\033[1;31mAdditional Info:\033[0m" << std::endl;
 std::cout << "zupd -full (full-system update) -r (reboot) -s (shutdown)" << std::endl;
 std::cout << "zrm -p (purge)" <<std::endl;
+std::cout << "--yes, -y: (automatic mode)" << std::endl;
 return 0;
 }

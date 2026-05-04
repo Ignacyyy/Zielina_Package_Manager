@@ -467,6 +467,7 @@ int main(int argc, char* argv[]) {
     bool           showHelp       = false;
     bool           showVersion    = false;
     bool           useTestPackage = false;
+    bool           y = false;
     vector<string> packages;
 
     bool hasFlatpak = (system("command -v flatpak >/dev/null 2>&1") == 0);
@@ -477,16 +478,28 @@ int main(int argc, char* argv[]) {
         if      (arg == "--help"    || arg == "-h") showHelp = true;
         else if (arg == "--version" || arg == "-v") showVersion = true;
         else if (arg == "--dry-run")                useTestPackage = true;
+        else if (arg == "--yes" || arg =="-y") y = true;
         else packages.push_back(arg);
     }
 
     if(showVersion && showHelp){
-        cout << RED << "Error: Invalid arguments, can't use -r and -s together, or can't use --help and --version with any other options!" << RESET << endl;
-        return 1;
+        cout << YELLOW << "--version" << RESET << endl;
+        cout << RED << "zinst component version: 1.1 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
+        cout << "" << endl;
+        cout << YELLOW <<"--help" << RESET << endl;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  (auto)         Picks APT / Flatpak / Snap per package\n";
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n";
+        return 0;
+       
     }
 
     if (showVersion) {
-        cout << RED << "zinst component version: 1.0 of ZPM\n" << RESET;
+        cout << RED << "zinst component version: 1.1 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;
