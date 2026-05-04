@@ -1,4 +1,4 @@
-// Compile: g++ -O2 -o zupdate zupdate.cpp
+// Compile: g++ -O2 -o zupgr zupgr.cpp
 
 #include <iostream>
 #include <cstdlib>
@@ -15,117 +15,105 @@ using namespace std;
 const string GREEN = "\033[1;32m";
 const string RESET = "\033[0m";
 const string RED   = "\033[31m";
+const string YELLOW = "\033[33m";
 
 string exec(const char* cmd) {
   array<char, 128> buffer;
   string result;
   unique_ptr<FILE, int(*)(FILE*)> pipe(popen(cmd, "r"), pclose);
   if (!pipe) return "";
+
   while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
     result += buffer.data();
+
   return result;
 }
 
+// ───────────────────────── VERSION ─────────────────────────
+
 string get_latest_version() {
   string api_url = "https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest";
-  string cmd = "curl -s -H 'User-Agent: Zielina-PM' " + api_url
-  + " 2>/dev/null | grep '\"tag_name\"' | head -1"
-  + " | sed 's/.*\"v\\([0-9.]*\\)\".*/\\1/'";
+  string cmd = "curl -s -H 'User-Agent: ZPM' " + api_url +
+  " | grep '\"tag_name\"' | head -1 | sed 's/.*\"v\\([0-9.]*\\)\".*/\\1/'";
+
   string version = exec(cmd.c_str());
   version.erase(remove(version.begin(), version.end(), '\n'), version.end());
-  version.erase(remove(version.begin(), version.end(), ' '),  version.end());
+  version.erase(remove(version.begin(), version.end(), ' '), version.end());
 
-  if (version.empty()) {
-    string fallback = "curl -s 2>/dev/null https://raw.githubusercontent.com/Ignacyyy/"
-    "Zielina_Package_Manager/main,-APT(debian,ubuntu.)/VERSION.txt"
-    " | grep -oP '\\d+(\\.\\d+)*'";
-    version = exec(fallback.c_str());
-    version.erase(remove(version.begin(), version.end(), '\n'), version.end());
-  }
   return version;
 }
 
 string get_installed_version() {
   FILE* file = fopen("/opt/ZPM/VERSION.txt", "r");
   if (!file) return "none";
+
   char line[64];
   string version;
-  if (fgets(line, sizeof(line), file)) {
+
+  if (fgets(line, sizeof(line), file))
     version = line;
-    version.erase(remove(version.begin(), version.end(), '\n'), version.end());
-  }
+
   fclose(file);
+
+  version.erase(remove(version.begin(), version.end(), '\n'), version.end());
   return version.empty() ? "none" : version;
 }
 
+// ───────────────────────── UI ─────────────────────────
+
 void print_banner() {
-  cout << RED << "Zielina Package Manager updater program" << RESET << endl;
-
-  cout << GREEN;
-
- cout << R"(
-
-
-                               ↑
-                               ↑↑
-                               ↖↑↙←                       ↑
-                               ↑↖↙↖↘↖                     ↑
-                               ↗↙↑↑↙↑↑←                 ↖↑←
-                               →↖↖↓↑↖↑↓↑              →↑↑↑
-                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←
-                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑
-                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑
-                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑
-                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←
-                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙
-                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←
-               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→
-                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←
-                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑
-                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓
-                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→
-                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘
-                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑
-                                              ↑    ←→↗↖←↘↖↘←↓
-                                               ↑   ←↖↖←↗↖↖↗↘
-                                                ↘  ←→←↖↓↗↙→
-                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→
-                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑
-                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗
-                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖
-                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑
-                                  →→↙↓↘↓←↙↘↗↙          ↖
-                                                        ↑
-
-                                                           ↑
-                                                            ↑
-                                                              ↑
-                                                                ↑↖
-                                                                   ↑
-                                                                     ↑
-                                                                        ↑
-                                                                           ↑↖
-)" << endl;
+  cout << RED << "Zielina Package Manager Updater (zupgr)" << RESET << "\n\n";
 }
 
+// ───────────────────────── MAIN ─────────────────────────
+
 int main(int argc, char* argv[]) {
-  for (int i = 1; i < argc; ++i) {
+
+  bool help = false;
+  bool version = false;
+
+  for (int i = 1; i < argc; i++) {
     string arg = argv[i];
-    if (arg == "--version" || arg == "-v") {
-      cout << RED << "zupgr component version: 1.0 of ZPM\n" << RESET;
-      cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
-      cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
-      return 0;
-    }
-    if (arg == "--help" || arg == "-h") {
-      cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
-      cout << RED << "Options:\n" << RESET;
-      cout << "  --version, -v  Show version information\n";
-      cout << "  --help,    -h  Show this help message\n\n";
-      cout << "Checks for ZPM updates and installs them.\n";
-      return 0;
-    }
+
+    if (arg == "--help" || arg == "-h") help = true;
+    if (arg == "--version" || arg == "-v") version = true;
   }
+
+  // ── HELP / VERSION ─────────────────────────────
+
+  if (help && version) {
+    cout << YELLOW <<"--version" << RESET << endl;
+    cout << RED << "zupgr component version: 1.1 of ZPM" << RESET << endl;
+    cout << "https://github.com/Ignacyyy/Zielina_Package_Manager" << endl;
+    cout << "Copyright (c) 2026 Ignacyyy" << endl;
+    cout << "License: MIT" << endl;
+    cout << "" << endl;
+    cout << YELLOW << "--help" << RESET << endl;
+    cout << RED << "Usage: "<< RESET << argv[0] << " [options]" << RESET << endl;
+    cout << "" <<endl;
+    cout << RED << "Options:" << RESET << endl;
+    cout << "  --help, -h    Show this help message" << endl;
+    cout << "  --version, -v    Show version information" << endl;
+    return 0;
+  }
+
+  if (version) {
+    cout << RED << "zupgr component version: 1.1 of ZPM\n" << RESET;
+    cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+    cout << "License: MIT\n";
+    return 0;
+  }
+
+  if (help) {
+    cout << RED << "Usage: zupgr [options]\n\n" << RESET;
+    cout << "Options:\n";
+    cout << "  -h, --help      Show help\n";
+    cout << "  -v, --version   Show version\n";
+    cout << "\nChecks and installs updates for ZPM.\n";
+    return 0;
+  }
+
+  // ── ROOT CHECK ─────────────────────────────
 
   if (geteuid() != 0) {
     cout << RED << "Run with sudo!\n" << RESET;
@@ -134,98 +122,83 @@ int main(int argc, char* argv[]) {
 
   print_banner();
 
-  string current_version = get_installed_version();
-  string latest_version  = get_latest_version();
+  string current = get_installed_version();
+  string latest  = get_latest_version();
 
-  cout << GREEN << "\n==========================================\n" << RESET;
-  cout << "Installed version: " << current_version << "\n";
-  cout << "Latest release:    " << latest_version  << "\n";
-  cout << GREEN << "==========================================\n\n" << RESET;
+  cout << GREEN << "Installed: " << current << RESET << "\n";
+  cout << GREEN << "Latest:    " << latest  << RESET << "\n\n";
 
-  if (current_version == latest_version && current_version != "none") {
-    cout << RED << "You already have the latest version (" << current_version << ").\n" << RESET;
+  if (current == latest && current != "none") {
+    cout << RED << "Already up to date.\n" << RESET;
     return 0;
   }
 
-  cout << RED << "New version available!\n" << RESET;
-  cout << "Do you want to update? [Y/n]: ";
-  string answer;
-  getline(cin, answer);
-  if (answer != "y" && answer != "Y" && !answer.empty()) {
-    cout << "Update canceled.\n";
+  cout << RED << "Update available. Continue? [Y/n]: " << RESET;
+  string ans;
+  getline(cin, ans);
+
+  if (!(ans.empty() || ans == "y" || ans == "Y")) {
+    cout << "Cancelled.\n";
     return 0;
   }
 
-  string temp_dir    = "/tmp/zielina_update_" + to_string(time(nullptr));
-  string archive     = temp_dir + "/zielina.tar.gz";
-  string log_file    = temp_dir + "/update.log";
+  // ── TEMP DIR ─────────────────────────────
 
-  // Create temp dir
-  (void)system(("mkdir -p " + temp_dir).c_str());
+  string temp = "/tmp/zupgr_" + to_string(time(nullptr));
+  string archive = temp + "/zpm.tar.gz";
 
-  // ── apt update + upgrade (suppress output, log it) ────────────────────────
-  cout << GREEN << "Updating system packages..." << RESET << "\n";
-  string apt_cmd = "DEBIAN_FRONTEND=noninteractive apt-get update -y >> "
-  + log_file + " 2>&1 && "
-  "DEBIAN_FRONTEND=noninteractive apt-get upgrade -y >> "
-  + log_file + " 2>&1";
-  if (system(apt_cmd.c_str()) != 0)
-    cout << RED << "Warning: apt update/upgrade had errors (see " << log_file << ").\n" << RESET;
+  system(("mkdir -p " + temp).c_str());
 
-  // ── download release archive (silent, log errors) ─────────────────────────
-  cout << "Downloading ZPM " << latest_version << "...\n";
-  string download_url = "https://github.com/Ignacyyy/Zielina_Package_Manager"
-  "/archive/refs/tags/v" + latest_version + ".tar.gz";
-  string dl_cmd = "curl -L --silent --show-error -o " + archive
-  + " " + download_url + " >> " + log_file + " 2>&1";
-  if (system(dl_cmd.c_str()) != 0) {
-    cerr << RED << "Failed to download release archive! See " << log_file << "\n" << RESET;
-    (void)system(("rm -rf " + temp_dir).c_str());
+  // ── DOWNLOAD ─────────────────────────────
+
+  string url = "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/v"
+  + latest + ".tar.gz";
+
+  cout << "Downloading...\n";
+
+  if (system(("curl -L -o " + archive + " " + url).c_str()) != 0) {
+    cout << RED << "Download failed!\n" << RESET;
     return 1;
   }
 
-  // ── extract (silent) ──────────────────────────────────────────────────────
+  // ── EXTRACT ─────────────────────────────
+
   cout << "Extracting...\n";
-  string extract_cmd = "tar -xzf " + archive + " -C " + temp_dir
-  + " >> " + log_file + " 2>&1";
-  if (system(extract_cmd.c_str()) != 0) {
-    cerr << RED << "Failed to extract archive! See " << log_file << "\n" << RESET;
-    (void)system(("rm -rf " + temp_dir).c_str());
+
+  if (system(("tar -xzf " + archive + " -C " + temp).c_str()) != 0) {
+    cout << RED << "Extract failed!\n" << RESET;
     return 1;
   }
 
-  // ── find extracted dir ────────────────────────────────────────────────────
-  string find_cmd    = "find " + temp_dir + " -maxdepth 1 -type d"
-  " -name 'Zielina_Package_Manager-*' | head -1";
-  string extracted   = exec(find_cmd.c_str());
+  // ── FIND ROOT DIR (SAFE) ─────────────────────────────
+
+  string extracted = exec(("find " + temp + " -mindepth 1 -maxdepth 1 -type d | head -1").c_str());
   extracted.erase(remove(extracted.begin(), extracted.end(), '\n'), extracted.end());
 
   if (extracted.empty()) {
-    cerr << RED << "Could not find extracted files!\n" << RESET;
-    (void)system(("rm -rf " + temp_dir).c_str());
+    cout << RED << "No extracted folder found!\n" << RESET;
     return 1;
   }
 
-  // ── run installer ─────────────────────────────────────────────────────────
-  cout << "Installing ZPM " << latest_version << "...\n";
-  string install_cmd = "cd " + extracted + " && chmod +x INSTALL.sh"
-  " && ./INSTALL.sh >> " + log_file + " 2>&1";
-  int install_rc = system(install_cmd.c_str());
+  cout << "Installing...\n";
 
-  // ── cleanup temp dir (but keep log on failure) ────────────────────────────
-  if (install_rc != 0) {
-    cerr << RED << "Installation failed! Log saved to " << log_file << "\n" << RESET;
-    // Remove everything except the log
-    (void)system(("find " + temp_dir + " ! -name 'update.log' -delete 2>/dev/null; "
-    "mv " + log_file + " /tmp/zupdate_failed.log 2>/dev/null; "
-    "rm -rf " + temp_dir).c_str());
-    cerr << RED << "See /tmp/zupdate_failed.log for details.\n" << RESET;
+  // ── SAFE INSTALL (NO GUESSING) ─────────────────────────────
+
+  string install_cmd =
+  "FILE=$(find " + extracted + " -name INSTALL.sh | head -1) && "
+  "[ -n \"$FILE\" ] && chmod +x \"$FILE\" && sudo \"$FILE\" || "
+  "echo 'INSTALL.sh not found' && exit 1";
+
+  int rc = system(install_cmd.c_str());
+
+  system(("rm -rf " + temp).c_str());
+
+  if (rc != 0) {
+    cout << RED << "Installation failed.\n" << RESET;
     return 1;
   }
 
-  // Success: remove entire temp dir including log
-  (void)system(("rm -rf " + temp_dir).c_str());
+  cout << GREEN << "\nUpdate complete!\n" << RESET;
 
-  cout << GREEN << "\nUpdate complete! ZPM " << latest_version << " installed.\n" << RESET;
   return 0;
 }
