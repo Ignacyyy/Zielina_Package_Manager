@@ -9,7 +9,6 @@ exec > >(tee -a "$LOG") 2>&1
 echo "=== ZPM Internet Installer ==="
 
 # ── CLEANUP TRAP ──────────────────────────────────────────────────────────────
-# Zawsze usuwa katalog tymczasowy — nawet przy błędzie lub Ctrl+C
 cleanup() {
     local exit_code=$?
     rm -rf "$TMP"
@@ -77,7 +76,6 @@ echo "[*] Installing to ${TARGET}..."
 rm -rf "$TARGET"
 mkdir -p "$TARGET"
 cp -r . "$TARGET/"
-
 
 if [ -d "$TARGET/bin" ]; then
     find "$TARGET/bin" -type f -exec chmod +x {} +
