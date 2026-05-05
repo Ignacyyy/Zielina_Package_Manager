@@ -17,8 +17,46 @@ void print_banner() {
     cout << GREEN;
     cout << R"(
 
-   (banner)
 
+                               ↑
+                               ↑↑
+                               ↖↑↙←                       ↑
+                               ↑↖↙↖↘↖                     ↑
+                               ↗↙↑↑↙↑↑←                 ↖↑←
+                               →↖↖↓↑↖↑↓↑              →↑↑↑
+                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←
+                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑
+                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑
+                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑
+                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←
+                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙
+                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←
+               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→
+                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←
+                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑
+                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓
+                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→
+                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘
+                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑
+                                              ↑    ←→↗↖←↘↖↘←↓
+                                               ↑   ←↖↖←↗↖↖↗↘
+                                                ↘  ←→←↖↓↗↙→
+                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→
+                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑
+                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗
+                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖
+                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑
+                                  →→↙↓↘↓←↙↘↗↙          ↖
+                                                        ↑
+
+                                                           ↑
+                                                            ↑
+                                                              ↑
+                                                                ↑↖
+                                                                   ↑
+                                                                     ↑
+                                                                        ↑
+                                                                           ↑↖
 )" << RESET << "\n";
 }
 
@@ -37,13 +75,33 @@ int main(int argc, char* argv[]) {
         else if (arg == "--help"    || arg == "-h") showHelp    = true;
     }
 
+    if (showVersion && showHelp) {
+        cout << YELLOW << "--version\n" << RESET;
+        cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
+        cout << YELLOW << "--help\n" << RESET;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n\n";
+        cout << "Removes all ZPM binaries and data from the system.\n";
+        return 0;
+    }
+
     if (showVersion) {
         cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;
     }
 
     if (showHelp) {
-        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n\n";
+        cout << "Removes all ZPM binaries and data from the system.\n";
         return 0;
     }
 
@@ -67,30 +125,27 @@ int main(int argc, char* argv[]) {
 
     cout << "Uninstalling...\n";
 
-// list of managed files (without .cpp extension)
-vector<string> files = {
-    "zhelp",
-    "zinst",
-    "zr",
-    "zs",
-    "zuninstall",
-    "zupgr",
-    "zclean",
-    "zinfo",
-    "zlist",
-    "zrm",
-    "zsearch",
-    "zupd"
-};
+    vector<string> files = {
+        "zhelp",
+        "zinst",
+        "zr",
+        "zs",
+        "zuninstall",
+        "zupgr",
+        "zclean",
+        "zinfo",
+        "zlist",
+        "zrm",
+        "zsearch",
+        "zupd"
+    };
 
-    // directories to check
     vector<string> dirs = {
         "/usr/bin/",
         "/usr/local/bin/",
         "/opt/ZPM/"
     };
 
-    // remove only listed files if they exist
     for (const auto& dir : dirs) {
         for (const auto& file : files) {
             string path = dir + file;
@@ -99,7 +154,6 @@ vector<string> files = {
         }
     }
 
-    // remove remaining ZPM data
     run("rm -rf /opt/ZPM 2>/dev/null");
     run("rm -rf /opt/Zielina_Package_Manager 2>/dev/null");
     run("rm -f /etc/profile.d/ZPM.sh /etc/profile.d/Zielina_Package_Manager.sh 2>/dev/null");
