@@ -186,9 +186,8 @@ int main(int argc, char* argv[]) {
 
   string install_cmd =
   "FILE=$(find " + extracted + " -name INSTALL.sh | head -1) && "
-  "[ -n \"$FILE\" ] && chmod +x \"$FILE\" && sudo \"$FILE\" || "
+  "[ -n \"$FILE\" ] && chmod +x \"$FILE\" && sudo bash \"$FILE\" || "
   "echo 'INSTALL.sh not found' && exit 1";
-
   int rc = system(install_cmd.c_str());
 
   system(("rm -rf " + temp).c_str());
