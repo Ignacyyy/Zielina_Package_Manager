@@ -9,6 +9,7 @@ exec > >(tee -a "$LOG") 2>&1
 echo "=== ZPM Internet Installer ==="
 
 # ── CLEANUP TRAP ──────────────────────────────────────────────────────────────
+# Zawsze usuwa katalog tymczasowy — nawet przy błędzie lub Ctrl+C
 cleanup() {
     local exit_code=$?
     rm -rf "$TMP"
@@ -50,21 +51,13 @@ if [ -z "$LATEST" ]; then
 fi
 echo "    Latest: $LATEST"
 
-# ── BACKUP ────────────────────────────────────
-if [ -d "$TARGET" ]; then
-    echo "[*] Creating backup of existing installation..."
-    rm -rf "${TARGET}_backup"
-    cp -a "$TARGET" "${TARGET}_backup"
-    echo "    Backup saved to: ${TARGET}_backup"
-fi
-
 # ── DOWNLOAD ─────────────────────────────────────────────────────────────────
 mkdir -p "$TMP"
 cd "$TMP"
 
 echo "[*] Downloading ${LATEST}..."
-if ! wget -q --show-error \
-    "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/${LATEST}.tar.gz"; then
+if ! wget -q \
+    "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/${LATEST}.tar.gz" 2>&1; then
     echo "ERROR: Download failed."
     exit 1
 fi
@@ -92,14 +85,12 @@ else
     echo "WARNING: No bin/ directory found in package."
 fi
 
-# Usuń stare symlinki do /opt/ZPM/bin/ przed tworzeniem nowych
 echo "[*] Updating symlinks in /usr/bin/..."
 find /usr/bin -maxdepth 1 -type l | while read -r link; do
     if readlink "$link" | grep -q "^${TARGET}/bin/"; then
         rm -f "$link"
     fi
 done
-
 
 if [ -d "$TARGET/bin" ] && [ -n "$(ls -A "$TARGET/bin" 2>/dev/null)" ]; then
     for bin_file in "$TARGET/bin"/*; do
@@ -110,11 +101,7 @@ else
     echo "WARNING: bin/ is empty — no symlinks created."
 fi
 
-
 echo "${LATEST#v}" > "$TARGET/VERSION.txt"
-
-
-rm -rf "${TARGET}_backup"
 
 echo ""
 echo " Installation complete!"
