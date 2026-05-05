@@ -27,7 +27,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # ── CONFIRM ───────────────────────────────────────────────────────────────────
-read -rp "Start installation of ZPM? [y/N] " odp
+read -rp "Start installation of ZPM? [y/n] " odp
 if [[ "$odp" != "y" && "$odp" != "Y" ]]; then
     echo "Cancelled."
     exit 0
