@@ -49,21 +49,11 @@ after successful installation.
 HOW TO INSTALL
 ---------------
 
-Method 1 (Recommended - one line):
+command, copy and paste:
+```bash
 
-   ```bash
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main%2C-APT%28debian%2Cubuntu.%29/INETINSTALL.sh)"
-
-Method 2 (Manual):
-
-    1. Open terminal.
-    2. Download latest release:
-    4. go to ZMP folder eg. ~/ZPM
-    3. Run installer
-       sudo chmod +x INSTALL.sh
-       sudo ./INSTALL.sh
-    4. Logout and back in (or reboot).
-
+```
 HOW TO UPDATE
 ---------------
     sudo zupgr
