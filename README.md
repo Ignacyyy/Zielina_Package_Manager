@@ -52,8 +52,7 @@ HOW TO INSTALL
 Method 1 (Recommended - one line):
 
    ```bash
-sudo apt update && sudo apt install git curl wget -y && LATEST=$(curl -s https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest | grep '"tag_name"' | head -1 | cut -d '"' -f4) && VERSION=${LATEST#v} && wget --no-cache "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/${LATEST}.tar.gz" && tar -xzf ${LATEST}.tar.gz && cd "Zielina_Package_Manager-${VERSION}" && sudo chmod +x INSTALL.sh && sudo bash ./INSTALL.sh && cd ~
-```
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main%2C-APT%28debian%2Cubuntu.%29/INETINSTALL.sh)"
 
 Method 2 (Manual):
 
