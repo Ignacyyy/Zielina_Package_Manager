@@ -451,9 +451,10 @@ system(repoCmd.c_str());
         cout << "\n" << YELLOW << "[S]" << RESET << GREEN << " Snap is available.\n" << RESET;
     }
 
+    string simMode = FullUpdate ? "dist-upgrade" : "upgrade";
     vector<string> aptUpgradable = DryRun ? vector<string>{
         "zpm-core", "zpm-ui", "apt-wrapper", "zpm-notifier", "zpm-plugins"
-    } : collectCommandLines("apt-get -s upgrade | awk '/^Inst /{print $2}'");
+    } : collectCommandLines("apt-get -s " + simMode + " | awk '/^Inst /{print $2}'");
 
     vector<string> flatpakUpgradable;
     if (hasFlatpak) {
@@ -469,10 +470,11 @@ system(repoCmd.c_str());
         } : collectCommandLines("snap refresh --list | sed -n '2,$p' | awk '{print $1}'");
     }
 
-    int hasUpdates = aptUpgradable.empty() ? 1 : 0;
+    bool noUpdatesAnywhere = aptUpgradable.empty() && flatpakUpgradable.empty() && snapUpgradable.empty();
 
-    if (hasUpdates != 0 && !FullUpdate && !DryRun) {
+    if (noUpdatesAnywhere && !DryRun) {
         cout << "\n" << RED << "System is up to date!" << RESET << endl;
+        return 0;
     }
     else {
         cout << RED << "\nPackages to update (APT):\n" << RESET;
