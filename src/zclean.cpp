@@ -125,22 +125,46 @@ int runAptTask(const string& label, const vector<const char*>& args,
 int main(int argc, char* argv[]) {
     signal(SIGINT, handleSigint);
     setvbuf(stdout, nullptr, _IONBF, 0);
-
+bool Help = false;
+bool Version = false;
     for (int i = 1; i < argc; ++i) {
         string arg = argv[i];
-        if (arg == "--version" || arg == "-v") {
-            cout << RED << "zclean component version: 1.0 of ZPM\n" << RESET;
+        
+        if (arg == "--version" || arg == "-v") Version = true;  
+        if (arg == "--help" || arg == "-h") Help = true;
+        
+    }
+
+    if (Version && Help)
+    {
+        cout << YELLOW << "--version" << RESET << endl;
+        cout << RED << "zclean component version: 1.1 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
+        cout << "\n";
+        cout << YELLOW << "--help\n" << RESET;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n\n";
+        return 0;
+    }
+
+    if (Version)
+    {
+        cout << RED << "zclean component version: 1.1 of ZPM\n" << RESET;
             cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
             cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
             return 0;
-        }
-        if (arg == "--help" || arg == "-h") {
-            cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
-            cout << RED << "Options:\n" << RESET;
-            cout << "  --version, -v  Show version information\n";
-            cout << "  --help,    -h  Show this help message\n\n";
-            return 0;
-        }
+    }
+
+    if (Help)
+    {
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n\n";
+        return 0;
     }
 
     if (geteuid() != 0) {

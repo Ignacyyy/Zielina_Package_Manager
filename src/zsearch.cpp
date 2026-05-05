@@ -42,11 +42,19 @@ int main(int argc, char* argv[]) {
     }
 
     if(showVersion && showHelp){
-        cout << RED << "Error: Invalid arguments, can't use -r and -s together, or can't use --help and --version with any other options!" << RESET << endl;
-        return 1;
+        cout << YELLOW << "--version\n" << RESET;
+        cout << RED << "zsearch component version: 1.2 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
+        cout << YELLOW << "--help\n" << RESET;
+        cout << RED << "Usage: " << RESET << argv[0] << " [packages...] [options]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n";
+        return 0;
     }
     if (showVersion) {
-        cout << RED << "zlist component version: 1.0 of ZPM\n" << RESET;
+        cout << RED << "zsearch component version: 1.2 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;

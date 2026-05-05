@@ -425,11 +425,11 @@ int main(int argc, char* argv[]) {
 
     if(showVersion && showHelp){
         cout << YELLOW << "--help" << RESET << endl;
-        cout << RED << "zrm component version: 1.1 of ZPM\n" << RESET;
+        cout << RED << "zrm component version: 1.2 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         cout << "" << endl;
-        cout << YELLOW << "--help" << RESET << endl;
+        cout << YELLOW << "--version" << RESET << endl;
         cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  (auto)         Picks APT / Flatpak / Snap per package\n";
@@ -445,7 +445,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (showVersion) {
-        cout << RED << "zrm component version: 1.1 of ZPM\n" << RESET;
+        cout << RED << "zrm component version: 1.2 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;

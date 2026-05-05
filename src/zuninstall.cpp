@@ -7,10 +7,10 @@
 
 using namespace std;
 
-const string GREEN = "\033[1;32m";
+const string GREEN  = "\033[1;32m";
 const string YELLOW = "\033[33m";
-const string RESET = "\033[0m";
-const string RED   = "\033[31m";
+const string RESET  = "\033[0m";
+const string RED    = "\033[31m";
 
 void print_banner() {
     cout << GREEN;
@@ -64,22 +64,44 @@ static void run(const char* cmd) {
 }
 
 int main(int argc, char* argv[]) {
+
+    bool showHelp    = false;
+    bool showVersion = false;
+
     for (int i = 1; i < argc; ++i) {
         string arg = argv[i];
-        if (arg == "--version" || arg == "-v") {
-            cout << RED << "zuninstall component version: 1.0 of ZPM\n" << RESET;
-            cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
-            cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
-            return 0;
-        }
-        if (arg == "--help" || arg == "-h") {
-            cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
-            cout << RED << "Options:\n" << RESET;
-            cout << "  --version, -v  Show version information\n";
-            cout << "  --help,    -h  Show this help message\n\n";
-            cout << "Removes all ZPM binaries and data from the system.\n";
-            return 0;
-        }
+        if      (arg == "--version" || arg == "-v") showVersion = true;
+        else if (arg == "--help"    || arg == "-h") showHelp    = true;
+    }
+
+    if (showVersion && showHelp) {
+        cout << YELLOW << "--version\n" << RESET;
+        cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
+        cout << YELLOW << "--help\n" << RESET;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n\n";
+        cout << "Removes all ZPM binaries and data from the system.\n";
+        return 0;
+    }
+
+    if (showVersion) {
+        cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
+        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
+        return 0;
+    }
+
+    if (showHelp) {
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Options:\n" << RESET;
+        cout << "  --version, -v  Show version information\n";
+        cout << "  --help,    -h  Show this help message\n\n";
+        cout << "Removes all ZPM binaries and data from the system.\n";
+        return 0;
     }
 
     if (geteuid() != 0) {
