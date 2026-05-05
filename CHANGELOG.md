@@ -1,3 +1,27 @@
+ZPM v1.4
+Added:
+- INETINSTALL.sh, now it it way easier to install ZMP from one command
+
+Programs updates:
+zupgr:
+- fixed bugs
+zuninstall: 
+- updated logic, fixed bugs
+zinst:  no changes
+zrm: no changes
+zs: no changes
+zr: no changes
+zhelp: no changes
+zclean: mo changes
+zupd: no changes
+zinfo: no changes
+zlist: no changes
+zsearch: no changes
+-----------------
+Next update plans (v1.4)
+- fix bugs and improve programs functions
+
+
 ZPM v1.3 (Stable)
 
 Programs updates:
@@ -22,10 +46,10 @@ zupgr:
 - Fixed options logic (--help, -h, --version, -v)
 
 zuninstall: no changes
-zlist: 
+zlist:
 - Fixed options logic (--help, -h, --version, -v)
 
-zclean: 
+zclean:
 - Fixed options logic (--help, -h, --version, -v)
 
 
