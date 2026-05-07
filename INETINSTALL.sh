@@ -64,7 +64,7 @@ fi
 echo "[*] Extracting..."
 tar -xzf "${LATEST}.tar.gz"
 
-DIR=$(find . -maxdepth 1 -type d -name "Zielina_Package_Manager-*" | head -1)
+DIR=$(find . -maxdepth 1 -type d -name "ZPM-*" | head -1)
 if [ -z "$DIR" ]; then
     echo "ERROR: Extraction failed — expected directory not found."
     exit 1
