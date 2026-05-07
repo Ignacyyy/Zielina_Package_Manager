@@ -67,12 +67,13 @@ std::cout << "\033[1mzuninstall\033[0m - Uninstall Zielina_Package_Manager, Usag
 std::cout << "\033[1mzr\033[0m - System reboot, Usage: sudo zr, Arg --help, -h, --version, -v, --yes, -y" << std::endl;
 std::cout << "\033[1mzs\033[0m - System Shutdown, Usage sudo zs, Arg --help, -h, --version, -v, --yes, -y" <<std::endl;
 std::cout << "\033[1mzclean\033[0m - System package/cache cleaning, Usage: zclean, Arg --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzupgr\033[0m - Zielina Package Manager update, Usage: sudo zupgr, Arg --help, -h, --version, -v" <<std::endl;
+std::cout << "\033[1mzupgr\033[0m - Zielina Package Manager update, Usage: sudo zupgr, Arg --help, -h, --version, -v, --force, -f" <<std::endl;
 std::cout << "" << std::endl;
 std::cout << "" << std::endl;
 std::cout << "\033[1;31mAdditional Info:\033[0m" << std::endl;
 std::cout << "zupd -full (full-system update) -r (reboot) -s (shutdown)" << std::endl;
 std::cout << "zrm -p (purge)" <<std::endl;
 std::cout << "--yes, -y: (automatic mode)" << std::endl;
+std::cout << "--force, -f: (force update)" << std::endl;
 return 0;
 }

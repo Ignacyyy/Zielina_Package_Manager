@@ -105,11 +105,13 @@ int main(int argc, char* argv[]) {
 
     bool help    = false;
     bool version = false;
+    bool force   = false;
 
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];
         if (arg == "--help"    || arg == "-h") help    = true;
         if (arg == "--version" || arg == "-v") version = true;
+        if (arg == "--force"   || arg == "-f") force   = true;
     }
 
     // ── HELP / VERSION ─────────────────────────────
@@ -124,6 +126,7 @@ int main(int argc, char* argv[]) {
         cout << RED << "Options:" << RESET << "\n";
         cout << "  --help,    -h   Show this help message\n";
         cout << "  --version, -v   Show version information\n";
+        cout << "  --force,   -f   Force reinstall even if already up to date\n";
         return 0;
     }
 
@@ -139,6 +142,7 @@ int main(int argc, char* argv[]) {
         cout << "Options:\n";
         cout << "  -h, --help      Show help\n";
         cout << "  -v, --version   Show version\n";
+        cout << "  -f, --force     Force reinstall even if already up to date\n";
         cout << "\nChecks and installs updates for ZPM.\n";
         return 0;
     }
@@ -166,8 +170,11 @@ int main(int argc, char* argv[]) {
     cout << GREEN << "Latest:    " << latest  << RESET << "\n\n";
 
     if (current == latest && current != "none") {
-        cout << GREEN << "Already up to date.\n" << RESET;
-        return 0;
+        if (!force) {
+            cout << GREEN << "Already up to date.\n" << RESET;
+            return 0;
+        }
+        cout << YELLOW << "Already up to date, but --force specified. Reinstalling...\n" << RESET;
     }
 
     cout << RED << "Update available. Continue? [Y/n]: " << RESET;
