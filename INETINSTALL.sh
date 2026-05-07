@@ -40,7 +40,7 @@ apt-get install -y curl git wget >> "$LOG" 2>&1
 
 # ── GET LATEST VERSION ────────────────────────────────────────────────────────
 echo "[*] Fetching latest version..."
-LATEST=$(curl -fsSL "https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest" \
+LATEST=$(curl -fsSL "https://api.github.com/repos/Ignacyyy/ZPM/releases/latest" \
     | grep '"tag_name"' \
     | cut -d '"' -f4)
 
