@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
     if(showVersion && showHelp){
         cout << YELLOW << "--version\n" << RESET;
         cout << RED << "zr component version: 1.1 of ZPM\n" << RESET;
-        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         cout << "\n";
         cout << YELLOW << "--help\n" << RESET;
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]){
     }
     if (showVersion) {
         cout << RED << "zr component version: 1.1 of ZPM\n" << RESET;
-        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;
     }

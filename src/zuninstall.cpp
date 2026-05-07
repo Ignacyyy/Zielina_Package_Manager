@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
     if (showVersion && showHelp) {
         cout << YELLOW << "--version\n" << RESET;
         cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
-        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
         cout << YELLOW << "--help\n" << RESET;
         cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
 
     if (showVersion) {
         cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
-        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+        cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;
     }
@@ -137,7 +137,9 @@ int main(int argc, char* argv[]) {
         "zlist",
         "zrm",
         "zsearch",
-        "zupd"
+        "zupd",
+        "ZPM",
+        "zpm"
     };
 
     vector<string> dirs = {
@@ -155,8 +157,8 @@ int main(int argc, char* argv[]) {
     }
 
     run("rm -rf /opt/ZPM 2>/dev/null");
-    run("rm -rf /opt/Zielina_Package_Manager 2>/dev/null");
-    run("rm -f /etc/profile.d/ZPM.sh /etc/profile.d/Zielina_Package_Manager.sh 2>/dev/null");
+    run("rm -rf /opt/ZPM 2>/dev/null");
+    run("rm -f /etc/profile.d/ZPM.sh /etc/profile.d/ZPM.sh 2>/dev/null");
 
     cout << GREEN << "Done. ZPM has been removed.\n" << RESET;
     return 0;

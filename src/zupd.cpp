@@ -376,7 +376,7 @@ int main(int argc, char* argv[]) {
     if (version && Help){
         cout << YELLOW <<"--version" << RESET << endl;
         cout << RED << "zupd component version: 1.1 of ZPM" << RESET << endl;
-        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager" << endl;
+        cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
         cout << "" << endl;
@@ -396,7 +396,7 @@ int main(int argc, char* argv[]) {
 
     if (version) {
         cout << RED << "zupd component version: 1.1 of ZPM" << RESET << endl;
-        cout << "https://github.com/Ignacyyy/Zielina_Package_Manager" << endl;
+        cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
         return 0;
@@ -451,10 +451,9 @@ system(repoCmd.c_str());
         cout << "\n" << YELLOW << "[S]" << RESET << GREEN << " Snap is available.\n" << RESET;
     }
 
-    string simMode = FullUpdate ? "dist-upgrade" : "upgrade";
     vector<string> aptUpgradable = DryRun ? vector<string>{
         "zpm-core", "zpm-ui", "apt-wrapper", "zpm-notifier", "zpm-plugins"
-    } : collectCommandLines("apt-get -s " + simMode + " | awk '/^Inst /{print $2}'");
+    } : collectCommandLines("apt-get -s upgrade | awk '/^Inst /{print $2}'");
 
     vector<string> flatpakUpgradable;
     if (hasFlatpak) {
@@ -470,11 +469,10 @@ system(repoCmd.c_str());
         } : collectCommandLines("snap refresh --list | sed -n '2,$p' | awk '{print $1}'");
     }
 
-    bool noUpdatesAnywhere = aptUpgradable.empty() && flatpakUpgradable.empty() && snapUpgradable.empty();
+    int hasUpdates = aptUpgradable.empty() ? 1 : 0;
 
-    if (noUpdatesAnywhere && !DryRun) {
+    if (hasUpdates != 0 && !FullUpdate && !DryRun) {
         cout << "\n" << RED << "System is up to date!" << RESET << endl;
-        return 0;
     }
     else {
         cout << RED << "\nPackages to update (APT):\n" << RESET;

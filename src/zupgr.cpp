@@ -32,7 +32,7 @@ string exec(const char* cmd) {
 // ───────────────────────── VERSION ─────────────────────────
 
 string get_latest_version() {
-  string api_url = "https://api.github.com/repos/Ignacyyy/Zielina_Package_Manager/releases/latest";
+  string api_url = "https://api.github.com/repos/Ignacyyy/ZPM/releases/latest";
   string cmd = "curl -s -H 'User-Agent: ZPM' " + api_url +
   " | grep '\"tag_name\"' | head -1 | sed 's/.*\"v\\([0-9.]*\\)\".*/\\1/'";
 
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
   if (help && version) {
     cout << YELLOW <<"--version" << RESET << endl;
     cout << RED << "zupgr component version: 1.1 of ZPM" << RESET << endl;
-    cout << "https://github.com/Ignacyyy/Zielina_Package_Manager" << endl;
+    cout << "https://github.com/Ignacyyy/ZPM" << endl;
     cout << "Copyright (c) 2026 Ignacyyy" << endl;
     cout << "License: MIT" << endl;
     cout << "" << endl;
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
 
   if (version) {
     cout << RED << "zupgr component version: 1.1 of ZPM\n" << RESET;
-    cout << "https://github.com/Ignacyyy/Zielina_Package_Manager\n";
+    cout << "https://github.com/Ignacyyy/ZPM\n";
     cout << "License: MIT\n";
     return 0;
   }
@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
 
   // ── DOWNLOAD ─────────────────────────────
 
-  string url = "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/v"
+  string url = "https://github.com/Ignacyyy/ZPM/archive/refs/tags/v"
   + latest + ".tar.gz";
 
   cout << "Downloading...\n";
