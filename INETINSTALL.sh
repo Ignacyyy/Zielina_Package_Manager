@@ -56,7 +56,7 @@ cd "$TMP"
 
 echo "[*] Downloading ${LATEST}..."
 if ! wget -q \
-    "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/${LATEST}.tar.gz" 2>&1; then
+    "https://github.com/Ignacyyy/ZPM/archive/refs/tags/${LATEST}.tar.gz" 2>&1; then
     echo "ERROR: Download failed."
     exit 1
 fi
