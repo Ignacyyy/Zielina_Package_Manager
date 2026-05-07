@@ -10,7 +10,7 @@ const string YELLOW = "\033[33m";
 const string RESET = "\033[0m";
 
 void show_version() {
-    cout << GREEN << "ZPM component version: 1.0" << RESET << endl;
+    cout << GREEN << "ZPM component version: 1.1" << RESET << endl;
     cout << "https://github.com/Ignacyyy/ZPM" << endl;
     cout << "Copyright (c) 2026 Ignacyyy" << endl;
     cout << "License: MIT" << endl;
@@ -18,7 +18,6 @@ void show_version() {
 
 void show_help() {
     cout << RED << "Usage: " << RESET << "zpm/ZPM <command> [options]" << endl;
-    cout << endl;
     cout << RED << "Commands:" << RESET << endl;
     cout << "  update, upd     Perform a system upgrade (zupd)" << endl;
     cout << "  upgrade, upgr   Upgrade ZPM itself (zupgr)" << endl;
@@ -66,8 +65,8 @@ int main(int argc, char* argv[]) {
         else if (cmd == "shutdown" || cmd == "s") target = "zs";
         else if (cmd == "uninstall") target = "zuninstall";
         else {
-            cerr << "Nieznana komenda: " << cmd << "\n";
-            cerr << "Uruchom 'zpm --help' aby zobaczyć wszystkie komendy.\n";
+            cerr << "unknown command: " << cmd << "\n";
+            cerr << "run 'zpm --help' to list all commands.\n";
             return 1;
         }
 
@@ -95,14 +94,13 @@ int main(int argc, char* argv[]) {
 
     if (version && help) {
         cout << YELLOW << "--version\n" << RESET;
-        cout << GREEN << "ZPM component version: 1.0" << RESET << endl;
+        cout << RED << "ZPM component version: 1.1" << RESET << endl;
         cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
         cout << "\n";
         cout << YELLOW << "--help\n" << endl;
         cout << RED << "Usage: " << RESET << "zpm/ZPM <command> [options]" << endl;
-        cout << endl;
         cout << RED << "Commands:" << RESET << endl;
         cout << "  update, upd     Perform a system upgrade (zupd)" << endl;
         cout << "  upgrade, upgr   Upgrade ZPM itself (zupgr)" << endl;
