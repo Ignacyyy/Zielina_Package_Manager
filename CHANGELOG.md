@@ -1,3 +1,29 @@
+ZPM v1.5
+Added:
+ZPM/zpm program, a new way of using Zielina_Package_Manager
+
+Program updates:
+INETINSTALL.sh
+- updated logic, and fixed bugs
+zuninstall: 
+- updated logic
+zupgr:
+- fixed bugs
+zinst:  no changes
+zrm: no changes
+zs: no changes
+zr: no changes
+zhelp: no changes
+zclean: mo changes
+zupd: no changes
+zinfo: no changes
+zlist: no changes
+zsearch: no changes
+-----------------------
+Next update plans (v1.6):
+ - fix bugs and improve programs functions
+
+
 ZPM v1.4
 Added:
 - INETINSTALL.sh, now it it way easier to install ZMP from one command
@@ -18,7 +44,7 @@ zinfo: no changes
 zlist: no changes
 zsearch: no changes
 -----------------
-Next update plans (v1.4)
+Next update plans (v1.5)
 - fix bugs and improve programs functions
 
 
