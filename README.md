@@ -52,7 +52,7 @@ HOW TO INSTALL
 command, copy and paste:
 ```bash
 
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ignacyyy/Zielina_Package_Manager/main%2C-APT%28debian%2Cubuntu.%29/INETINSTALL.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ignacyyy/ZPM/main%2C-APT%28debian%2Cubuntu.%29/INETINSTALL.sh)"
 ```
 HOW TO UPDATE
 ---------------
@@ -64,6 +64,7 @@ HOW TO UNINSTALL
 
 COMMANDS
 ---------------
+    zpm/ZPM     - new way of using Zielina_Package_Manager, use zpm --help for more info
     zhelp       - Display help message
     zinst       - Install package
     zrm         - Remove package
@@ -82,7 +83,7 @@ INFO
     Works on: Debian/Ubuntu (APT) distros ONLY
     Installation path: /opt/ZPM
     Commands location: /usr/bin/z* (symbolic links)
-    Current version: 1.4
+    Current version: 1.5
 
 DEPENDENCIES
 ---------------
