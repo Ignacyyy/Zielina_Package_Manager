@@ -10,7 +10,7 @@ const string YELLOW = "\033[33m";
 const string RESET = "\033[0m";
 
 void show_version() {
-    cout << GREEN << "ZPM component version: 1.1" << RESET << endl;
+    cout << RED << "ZPM component version: 1.2" << RESET << endl;
     cout << "https://github.com/Ignacyyy/ZPM" << endl;
     cout << "Copyright (c) 2026 Ignacyyy" << endl;
     cout << "License: MIT" << endl;
@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
 
     if (version && help) {
         cout << YELLOW << "--version\n" << RESET;
-        cout << RED << "ZPM component version: 1.1" << RESET << endl;
+        cout << RED << "ZPM component version: 1.2" << RESET << endl;
         cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
