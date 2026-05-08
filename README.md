@@ -83,7 +83,7 @@ INFO
     Works on: Debian/Ubuntu (APT) distros ONLY
     Installation path: /opt/ZPM
     Commands location: /usr/bin/z* (symbolic links)
-    Current version: 1.5
+    Current version: 1.6
 
 DEPENDENCIES
 ---------------
