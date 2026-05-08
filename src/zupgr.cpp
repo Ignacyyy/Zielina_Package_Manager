@@ -118,11 +118,11 @@ int main(int argc, char* argv[]) {
 
     if (help && version) {
         cout << YELLOW << "--version" << RESET << "\n";
-        cout << RED << "zupgr component version: 1.2 of ZPM" << RESET << "\n";
+        cout << RED << "zupgr component version: 1.3 of ZPM" << RESET << "\n";
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
         cout << YELLOW << "--help" << RESET << "\n";
-        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm upgr/upgrade [options]"  "\n\n";
         cout << RED << "Options:" << RESET << "\n";
         cout << "  --help,    -h   Show this help message\n";
         cout << "  --version, -v   Show version information\n";
@@ -131,14 +131,14 @@ int main(int argc, char* argv[]) {
     }
 
     if (version) {
-        cout << RED << "zupgr component version: 1.2 of ZPM\n" << RESET;
+        cout << RED << "zupgr component version: 1.3 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "License: MIT\n";
         return 0;
     }
 
     if (help) {
-        cout << RED << "Usage: zupgr [options]\n\n" << RESET;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm upgr/upgrade [options]"  "\n\n";
         cout << "Options:\n";
         cout << "  -h, --help      Show help\n";
         cout << "  -v, --version   Show version\n";

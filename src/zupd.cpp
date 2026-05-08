@@ -375,14 +375,13 @@ int main(int argc, char* argv[]) {
 
     if (version && Help){
         cout << YELLOW <<"--version" << RESET << endl;
-        cout << RED << "zupd component version: 1.1 of ZPM" << RESET << endl;
+        cout << RED << "zupd component version: 1.2 of ZPM" << RESET << endl;
         cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
         cout << "" << endl;
         cout << YELLOW << "--help" << RESET << endl;
-        cout << RED << "Usage: "<< RESET << argv[0] << " [options]" << RESET << endl;
-        cout << "" <<endl;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm upd/update [options]"  "\n\n";
         cout << RED << "Options:" << RESET << endl;
         cout << "  -full     Perform a full system upgrade (dist-upgrade)" << endl;
         cout << "  -r        Reboot the system after update" << endl;
@@ -395,7 +394,7 @@ int main(int argc, char* argv[]) {
 
 
     if (version) {
-        cout << RED << "zupd component version: 1.1 of ZPM" << RESET << endl;
+        cout << RED << "zupd component version: 1.2 of ZPM" << RESET << endl;
         cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
@@ -403,8 +402,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (Help) {
-        cout << RED << "Usage: "<< RESET << argv[0] << " [options]" << RESET << endl;
-        cout << "" <<endl;
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm upd/update [options]"  "\n\n";
         cout << RED << "Options:" << RESET << endl;
         cout << "  -full     Perform a full system upgrade (dist-upgrade)" << endl;
         cout << "  -r        Reboot the system after update" << endl;

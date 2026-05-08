@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
         cout << YELLOW << "--help\n" << RESET;
-        cout << RED << "Usage: " << RESET << argv[0] << " [packages...] [options]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]" << " or zpm search [options] [packages...]"  "\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  --version, -v  Show version information\n";
         cout << "  --help,    -h  Show this help message\n";
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (showHelp) {
-        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]" << " or zpm search [options] [packages...]"  "\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  --version, -v  Show version information\n";
         cout << "  --help,    -h  Show this help message\n";

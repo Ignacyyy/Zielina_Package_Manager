@@ -34,7 +34,7 @@ void drawGlobalBar(float pct, const string& task) {
     if (percent > 100) percent = 100;
     int pos = width * percent / 100;
 
-    cout << "\r\033[K" << YELLOW << "Install Progress: [" << RESET;
+    cout << "\r\033[K" << YELLOW << "Clean Progress: [" << RESET;
     for (int i = 0; i < width; ++i)
         cout << (i < pos ? GREEN + "#" + RESET : " ");
     cout << YELLOW << "] " << percent << "% " << RESET << "| " << task << flush;
@@ -138,12 +138,12 @@ bool Version = false;
     if (Version && Help)
     {
         cout << YELLOW << "--version" << RESET << endl;
-        cout << RED << "zclean component version: 1.1 of ZPM\n" << RESET;
+        cout << RED << "zclean component version: 1.2 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         cout << "\n";
         cout << YELLOW << "--help\n" << RESET;
-        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm clean" << " [options]\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  --version, -v  Show version information\n";
         cout << "  --help,    -h  Show this help message\n\n";
@@ -152,7 +152,7 @@ bool Version = false;
 
     if (Version)
     {
-        cout << RED << "zclean component version: 1.1 of ZPM\n" << RESET;
+        cout << RED << "zclean component version: 1.2 of ZPM\n" << RESET;
             cout << "https://github.com/Ignacyyy/ZPM\n";
             cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
             return 0;
@@ -160,7 +160,7 @@ bool Version = false;
 
     if (Help)
     {
-        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm clean" << " [options]\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  --version, -v  Show version information\n";
         cout << "  --help,    -h  Show this help message\n\n";
@@ -189,7 +189,7 @@ bool Version = false;
     int   total = static_cast<int>(tasks.size());
     float step  = 100.0f / total;
 
-    cout << GREEN << "Cleaning system cache and unused packages..." << RESET << "\n\n";
+    cout << RED << "Cleaning system cache and unused packages..." << RESET << "\n\n";
 
     // Single BarState shared across all tasks — render thread runs the whole time
     BarState bs;
@@ -241,7 +241,7 @@ bool Version = false;
 
     for (const auto& r : results) {
         if (r.second)
-            cout << GREEN << r.first << ": done." << RESET << "\n";
+            cout << r.first << ": done." << RESET << "\n";
         else
             cout << RED   << r.first << ": failed." << RESET << "\n";
     }

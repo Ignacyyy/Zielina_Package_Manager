@@ -13,52 +13,6 @@ const string YELLOW = "\033[33m";
 const string RESET  = "\033[0m";
 const string RED    = "\033[31m";
 
-void print_banner() {
-    cout << GREEN;
-    cout << R"(
-
-
-                               ↑
-                               ↑↑
-                               ↖↑↙←                       ↑
-                               ↑↖↙↖↘↖                     ↑
-                               ↗↙↑↑↙↑↑←                 ↖↑←
-                               →↖↖↓↑↖↑↓↑              →↑↑↑
-                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←
-                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑
-                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑
-                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑
-                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←
-                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙
-                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←
-               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→
-                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←
-                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑
-                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓
-                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→
-                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘
-                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑
-                                              ↑    ←→↗↖←↘↖↘←↓
-                                               ↑   ←↖↖←↗↖↖↗↘
-                                                ↘  ←→←↖↓↗↙→
-                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→
-                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑
-                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗
-                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖
-                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑
-                                  →→↙↓↘↓←↙↘↗↙          ↖
-                                                        ↑
-
-                                                           ↑
-                                                            ↑
-                                                              ↑
-                                                                ↑↖
-                                                                   ↑
-                                                                     ↑
-                                                                        ↑
-                                                                           ↑↖
-)" << RESET << "\n";
-}
 
 static void run(const string& cmd) {
     system(cmd.c_str());
@@ -77,11 +31,11 @@ int main(int argc, char* argv[]) {
 
     if (showVersion && showHelp) {
         cout << YELLOW << "--version\n" << RESET;
-        cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
+        cout << RED << "zuninstall component version: 1.2 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
         cout << YELLOW << "--help\n" << RESET;
-        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm uninstall [options]" "\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  --version, -v  Show version information\n";
         cout << "  --help,    -h  Show this help message\n\n";
@@ -90,14 +44,14 @@ int main(int argc, char* argv[]) {
     }
 
     if (showVersion) {
-        cout << RED << "zuninstall component version: 1.1 of ZPM\n" << RESET;
+        cout << RED << "zuninstall component version: 1.2 of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;
     }
 
     if (showHelp) {
-        cout << RED << "Usage: " << RESET << argv[0] << " [options]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options]" << " or zpm uninstall [options]" "\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  --version, -v  Show version information\n";
         cout << "  --help,    -h  Show this help message\n\n";
@@ -110,7 +64,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    print_banner();
+    
 
     cout << RED << "Zielina Package Manager Uninstall program\n" << RESET;
     cout << "Do you want to continue? [y/N]: ";

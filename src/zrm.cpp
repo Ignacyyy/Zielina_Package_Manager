@@ -430,7 +430,7 @@ int main(int argc, char* argv[]) {
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         cout << "" << endl;
         cout << YELLOW << "--version" << RESET << endl;
-        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]" << " or zpm rm/remove [options] [packages...]"  "\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  (auto)         Picks APT / Flatpak / Snap per package\n";
         cout << "  --purge, -p    APT purge instead of remove\n";
@@ -452,7 +452,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (showHelp) {
-        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]\n\n";
+        cout << RED << "Usage: " << RESET << argv[0] << " [options] [packages...]" << " or zpm rm/remove [options] [packages...]"  "\n\n";
         cout << RED << "Options:\n" << RESET;
         cout << "  (auto)         Picks APT / Flatpak / Snap per package\n";
         cout << "  --purge, -p    APT purge instead of remove\n";

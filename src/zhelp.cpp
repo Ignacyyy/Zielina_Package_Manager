@@ -1,79 +1,64 @@
-
 #include <iostream>
 #include <string>
-#include <cstdlib>
+#include <fstream>
 
-int main() 
-{std::cout << "\033[1;31mZielina Package Manager\033[0m v1.5" << std::endl;
-//colors
-const std::string GREEN = "\033[1;32m";
-const std::string RESET = "\033[0m";
+int main() {
+    const std::string RED = "\033[1;31m";
+    const std::string GREEN = "\033[1;32m";
+    const std::string BOLD = "\033[1m";
+    const std::string RESET = "\033[0m";
 
-std::cout << GREEN;
-    
- std::cout << R"(    
-  
+    std::string version = "unknown";
+    std::ifstream plik("/opt/ZPM/VERSION.txt");
+    if (plik.is_open()) {
+        plik >> version; 
+        plik.close();
+    }
 
-                               ↑                                                         
-                               ↑↑                                                        
-                               ↖↑↙←                       ↑                              
-                               ↑↖↙↖↘↖                     ↑                              
-                               ↗↙↑↑↙↑↑←                 ↖↑←                              
-                               →↖↖↓↑↖↑↓↑              →↑↑↑                               
-                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←                               
-                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑                               
-                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑                            
-                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑                            
-                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←                            
-                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙                           
-                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←                           
-               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→                           
-                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←                           
-                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑                           
-                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓                           
-                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→                           
-                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘                           
-                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑                            
-                                              ↑    ←→↗↖←↘↖↘←↓                            
-                                               ↑   ←↖↖←↗↖↖↗↘                             
-                                                ↘  ←→←↖↓↗↙→                              
-                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→                               
-                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑                                
-                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗                                  
-                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖                                   
-                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑                                   
-                                  →→↙↓↘↓←↙↘↗↙          ↖                                 
-                                                        ↑                                
-                                                                                         
-                                                           ↑                             
-                                                            ↑                            
-                                                              ↑                          
-                                                                ↑↖                       
-                                                                   ↑                     
-                                                                     ↑                   
-                                                                        ↑                
-                                                                           ↑↖            
-)" << std::endl;
-std::cout << RESET; // color reset
-std::cout << "\033[1;31mOptions:\033[0m" << std::endl;
-std::cout << "\033[1mzhelp\033[0m - Display this help message, Usage: zhelp" << std::endl;
-std::cout << "\033[1mzupd\033[0m - Update package, Usage: zupd or zupd -full...(etc.), Agr -full, -r, -s, --help, -h --version -v, --yes, -y" << std::endl;
-std::cout << "\033[1mzinst\033[0m - Install package, Usage: zinst [package name], Agr --help, h, --version, -v" << std::endl;
-std::cout << "\033[1mzrm\033[0m - Remove package, Usage: zrm [package name], Agr -p, --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzlist\033[0m - List all packages, Usage: zlist, Arg --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzsearch\033[0m - Search for a package, Usage: zsearch [package name], Arg --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzinfo\033[0m - Get package information, Usage: zinfo [package name], Arg --help, -h, --version, -v " << std::endl;
-std::cout << "\033[1mzuninstall\033[0m - Uninstall Zielina_Package_Manager, Usage: sudo zuninstall, Arg --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzr\033[0m - System reboot, Usage: sudo zr, Arg --help, -h, --version, -v, --yes, -y" << std::endl;
-std::cout << "\033[1mzs\033[0m - System Shutdown, Usage sudo zs, Arg --help, -h, --version, -v, --yes, -y" <<std::endl;
-std::cout << "\033[1mzclean\033[0m - System package/cache cleaning, Usage: zclean, Arg --help, -h, --version, -v" << std::endl;
-std::cout << "\033[1mzupgr\033[0m - Zielina Package Manager update, Usage: sudo zupgr, Arg --help, -h, --version, -v, --force, -f" <<std::endl;
-std::cout << "" << std::endl;
-std::cout << "" << std::endl;
-std::cout << "\033[1;31mAdditional Info:\033[0m" << std::endl;
-std::cout << "zupd -full (full-system update) -r (reboot) -s (shutdown)" << std::endl;
-std::cout << "zrm -p (purge)" <<std::endl;
-std::cout << "--yes, -y: (automatic mode)" << std::endl;
-std::cout << "--force, -f: (force update)" << std::endl;
-return 0;
+    std::cout << RED << "Zielina Package Manager (ZPM) " << RESET << "v" << version << std::endl;
+    std::cout << "https://github.com/Ignacyyy/ZPM\n" << std::endl;
+
+    // commands
+    std::cout << BOLD << "Commands:" << RESET << std::endl;
+    std::cout << "  " << GREEN << "zhelp" << RESET << "      - Show this help message" << std::endl;
+    std::cout << "  " << GREEN << "zpm" << RESET << "        - Unified wrapper (e.g., zpm install, zpm update)" << std::endl;
+    std::cout << "  " << GREEN << "ZPM" << RESET << "        - Same as zpm (alternative name)" << std::endl;
+    std::cout << "  " << GREEN << "zupd" << RESET << "       - Update system packages" << std::endl;
+    std::cout << "  " << GREEN << "zinst" << RESET << "      - Install package" << std::endl;
+    std::cout << "  " << GREEN << "zrm" << RESET << "        - Remove package" << std::endl;
+    std::cout << "  " << GREEN << "zlist" << RESET << "      - List installed packages" << std::endl;
+    std::cout << "  " << GREEN << "zsearch" << RESET << "    - Search for package" << std::endl;
+    std::cout << "  " << GREEN << "zinfo" << RESET << "      - Package information" << std::endl;
+    std::cout << "  " << GREEN << "zclean" << RESET << "     - Clean package cache" << std::endl;
+    std::cout << "  " << GREEN << "zr" << RESET << "         - Reboot system (sudo)" << std::endl;
+    std::cout << "  " << GREEN << "zs" << RESET << "         - Shutdown system (sudo)" << std::endl;
+    std::cout << "  " << GREEN << "zupgr" << RESET << "      - Update ZPM itself (sudo)" << std::endl;
+    std::cout << "  " << GREEN << "zuninstall" << RESET << " - Uninstall ZPM (sudo)" << std::endl;
+
+    // global options
+    std::cout << "\n" << BOLD << "Common options:" << RESET << std::endl;
+    std::cout << "  --help, -h    Show help for a specific command" << std::endl;
+    std::cout << "  --version, -v Show version" << std::endl;
+
+    // args
+    std::cout << "\n" << BOLD << "Command-specific arguments:" << RESET << std::endl;
+    std::cout << "  zupd   -full   Full system upgrade" << std::endl;
+    std::cout << "  zupd   -r      Reboot after update" << std::endl;
+    std::cout << "  zupd   -s      Shutdown after update" << std::endl;
+    std::cout << "  zupd   --yes, -y   Automatic yes to prompts" << std::endl;
+    std::cout << "  zrm    -p      Purge (remove config files)" << std::endl;
+    std::cout << "  zupgr  --force, -f Force update ZPM" << std::endl;
+
+    // examples
+    std::cout << "\n" << BOLD << "Examples:" << RESET << std::endl;
+    std::cout << "  zinst firefox" << std::endl;
+    std::cout << "  sudo zupd -full -y" << std::endl;
+    std::cout << "  zrm vlc -p" << std::endl;
+
+    // zpm wrapper info
+    std::cout << "\n" << RED << "New way of using ZPM:" << RESET << std::endl;
+    std::cout << "  " << BOLD << "zpm" << RESET << " <command> [options]   (e.g., zpm install firefox)" << std::endl;
+    std::cout << "  Run " << BOLD << "zpm --help" << RESET << " for more details." << std::endl;
+
+    return 0;
 }
