@@ -10,13 +10,10 @@
 #include <algorithm>
 #include <ctime>
 
-using namespace std;
+//colors
+#include "/opt/ZPM/src/common/colors.h"
 
-const string GREEN  = "\033[1;32m";
-const string RESET  = "\033[0m";
-const string RED    = "\033[31m";
-const string YELLOW = "\033[33m";
-const string CYAN   = "\033[1;36m";
+using namespace std;
 
 const string TARGET = "/opt/ZPM";
 

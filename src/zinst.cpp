@@ -14,14 +14,12 @@
 #include <atomic>
 #include <sys/wait.h>
 
+//colors
+#include "/opt/ZPM/src/common/colors.h"
+
 using namespace std;
 
-const string GREEN  = "\033[32m";
-const string YELLOW = "\033[33m";
-const string RED    = "\033[31m";
-const string CYAN   = "\033[36m";
-const string BOLD   = "\033[1m";
-const string RESET  = "\033[0m";
+
 const string LOG_PATH = "/tmp/zinst.log";
 
 volatile sig_atomic_t g_interrupted = 0;
