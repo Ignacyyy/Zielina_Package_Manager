@@ -15,7 +15,7 @@ void show_version() {
 }
 
 void show_help() {
-    cout << RED << "Usage: " << RESET << "zpm/ZPM <command> [options]" << endl;
+    cout << RED << "Usage: " << RESET << "zpm <command> [options]" << endl;
     cout << RED << "Commands:" << RESET << endl;
     cout << "  update, upd     Perform a system upgrade (zupd)" << endl;
     cout << "  upgrade, upgr   Upgrade ZPM itself (zupgr)" << endl;
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
         cout << "License: MIT" << endl;
         cout << "\n";
         cout << YELLOW << "--help\n" << endl;
-        cout << RED << "Usage: " << RESET << "zpm/ZPM <command> [options]" << endl;
+        cout << RED << "Usage: " << RESET << "zpm <command> [options]" << endl;
         cout << RED << "Commands:" << RESET << endl;
         cout << "  update, upd     Perform a system upgrade (zupd)" << endl;
         cout << "  upgrade, upgr   Upgrade ZPM itself (zupgr)" << endl;
