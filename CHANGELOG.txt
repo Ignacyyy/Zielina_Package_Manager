@@ -1,4 +1,7 @@
 ZPM v1.6
+Added:
+- PREVERSION.txt
+
 Program updates: (General)
 - zhelp new UI, 
 - new --help look in all programs
