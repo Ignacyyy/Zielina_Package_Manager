@@ -1,22 +1,4 @@
-// Compile: g++ -O2 -pthread -o zrm zrm.cpp
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <atomic>
-#include <fstream>
-#include <cstdlib>
-#include <unistd.h>
-#include <cstdio>
-#include <algorithm>
-#include <csignal>
-#include <cmath>
-#include <fcntl.h>
-#include <pthread.h>
-#include <sys/wait.h>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 using namespace std;
 

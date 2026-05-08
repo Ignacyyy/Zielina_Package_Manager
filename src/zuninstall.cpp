@@ -1,13 +1,4 @@
-// Compile: g++ -O2 -o zuninstall zuninstall.cpp
-
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <unistd.h>
-#include <vector>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 using namespace std;
 

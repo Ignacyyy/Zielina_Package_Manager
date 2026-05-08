@@ -1,17 +1,4 @@
-// Compile: g++ -O2 -o zupgr zupgr.cpp
-
-#include <iostream>
-#include <cstdlib>
-#include <unistd.h>
-#include <string>
-#include <cstdio>
-#include <memory>
-#include <array>
-#include <algorithm>
-#include <ctime>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 using namespace std;
 

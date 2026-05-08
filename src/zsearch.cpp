@@ -1,11 +1,4 @@
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <algorithm>
-#include <unistd.h>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 // lowercase
 std::string toLower(std::string str) {

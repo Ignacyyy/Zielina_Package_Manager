@@ -1,9 +1,4 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 int main() {
     

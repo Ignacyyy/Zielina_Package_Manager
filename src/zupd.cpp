@@ -1,17 +1,4 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <unistd.h>
-#include <vector>
-#include <cstdio>
-#include <algorithm>
-#include <sstream>
-#include <fstream>
-#include <csignal>
-#include <sys/wait.h>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 using namespace std;
 

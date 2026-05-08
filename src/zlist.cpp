@@ -1,10 +1,4 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <unistd.h>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 int main(int argc, char* argv[]) {
 

@@ -1,9 +1,4 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 using namespace std;
 

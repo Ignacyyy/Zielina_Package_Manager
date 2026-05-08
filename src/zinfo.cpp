@@ -1,10 +1,4 @@
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <algorithm>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 // funkcja do obsługi jednego pakietu
 void showPackageInfo(const std::string& pkg) {

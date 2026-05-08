@@ -1,21 +1,4 @@
-// Compile: g++ -O2 -pthread -o zinst zinst.cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <unistd.h>
-#include <cstdio>
-#include <algorithm>
-#include <fstream>
-#include <csignal>
-#include <cmath>
-#include <fcntl.h>
-#include <pthread.h>
-#include <atomic>
-#include <sys/wait.h>
-
-//colors
-#include "/opt/ZPM/src/common/colors.h"
+#include "main.h"
 
 using namespace std;
 
