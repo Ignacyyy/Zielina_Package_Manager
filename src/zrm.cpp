@@ -44,7 +44,7 @@ void drawGlobalBar(float pct, const string& task) {
     if (percent > 100) percent = 100;
     int pos = width * percent / 100;
 
-    cout << "\r\033[K" << YELLOW << "Install Progress: [" << RESET;
+    cout << "\r\033[K" << YELLOW << "Remove Progress: [" << RESET;
     for (int i = 0; i < width; ++i)
         cout << (i < pos ? GREEN + "#" + RESET : " ");
     cout << YELLOW << "] " << percent << "% " << RESET << "| " << task << flush;
