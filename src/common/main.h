@@ -24,6 +24,9 @@
 #include <filesystem>
 #include <map>
 #include <memory>
+#include <fcntl.h>
+#include <cmath> 
+#include <sys/types.h>
 
 // ====================== ZPM COMMON ======================
 #include "colors.h"     // colors
