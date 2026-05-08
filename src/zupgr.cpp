@@ -241,7 +241,7 @@ int main(int argc, char* argv[]) {
         string archive = temp + "/zpm.tar.gz";
         system(("mkdir -p " + temp).c_str());
 
-        string url = "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/v"
+        string url = "https://github.com/Ignacyyy/ZPM/archive/refs/tags/v"
                      + latest_pre + ".tar.gz";
 
         cout << "Downloading pre-release v" << latest_pre << "...\n";
@@ -310,7 +310,7 @@ int main(int argc, char* argv[]) {
     string archive = temp + "/zpm.tar.gz";
     system(("mkdir -p " + temp).c_str());
 
-    string url = "https://github.com/Ignacyyy/Zielina_Package_Manager/archive/refs/tags/v"
+    string url = "https://github.com/Ignacyyy/ZPM/archive/refs/tags/v"
                  + latest + ".tar.gz";
 
     cout << "Downloading v" << latest << "...\n";
