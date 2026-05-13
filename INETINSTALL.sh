@@ -28,13 +28,12 @@ fi
 
 # ── CONFIRM ───────────────────────────────────────────────────────────────────
 read -rp "Start installation of ZPM? [y/n] " odp
-echo "https://github.com/Ignacyyy/ZPM"
-echo ""
 if [[ "$odp" != "y" && "$odp" != "Y" ]]; then
     echo "Cancelled."
     exit 0
 fi
-
+echo "https://github.com/Ignacyyy/ZPM"
+echo ""
 # ── DEPENDENCIES ─────────────────────────────────────────────────────────────
 echo "[*] Installing dependencies..."
 echo "dependencies list:"
