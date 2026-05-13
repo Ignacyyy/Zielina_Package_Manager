@@ -40,8 +40,8 @@ echo "-curl"
 echo "-git"
 echo "-wget"
 echo "-python3"
-read -rp "Do you want to continue? [y/n] " dodp
-
+read -rp " Do you want to continue? [y/n] " dodp
+echo ""
 if [[ "$dodp" =~ ^[Yy]$ ]]; then
     echo "[*] Updating package lists..."
     apt-get update -y >> "$LOG" 2>&1
