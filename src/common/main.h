@@ -30,7 +30,7 @@
 
 // ====================== ZPM COMMON ======================
 #include "colors.h"     // colors
-
+#include "progressbar.h" // progressbar
 
 
 
