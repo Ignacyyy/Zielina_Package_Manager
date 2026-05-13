@@ -34,15 +34,14 @@ if [[ "$odp" != "y" && "$odp" != "Y" ]]; then
 fi
 
 # ── DEPENDENCIES ─────────────────────────────────────────────────────────────
-echo ""
 echo "[*] Installing dependencies..."
 echo "dependencies list:"
 echo "-curl"
 echo "-git"
 echo "-wget"
 echo "-python3"
-read -rp " Do you want to continue? [y/n] " dodp
-echo ""
+read -rp "Do you want to continue? [y/n] " dodp
+
 if [[ "$dodp" =~ ^[Yy]$ ]]; then
     echo "[*] Updating package lists..."
     apt-get update -y >> "$LOG" 2>&1
