@@ -27,6 +27,7 @@
 #include <fcntl.h>
 #include <cmath> 
 #include <sys/types.h>
+#include <sys/ioctl.h>
 
 // ====================== ZPM COMMON ======================
 #include "colors.h"     // colors
