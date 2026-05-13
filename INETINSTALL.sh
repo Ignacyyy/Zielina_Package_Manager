@@ -7,8 +7,6 @@ TARGET="/opt/ZPM"
 
 exec > >(tee -a "$LOG") 2>&1
 echo "=== ZPM Internet Installer ==="
-echo "https://github.com/Ignacyyy/ZPM"
-echo ""
 
 # ── CLEANUP TRAP ──────────────────────────────────────────────────────────────
 cleanup() {
