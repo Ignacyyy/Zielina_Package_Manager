@@ -35,8 +35,25 @@ fi
 
 # ── DEPENDENCIES ─────────────────────────────────────────────────────────────
 echo "[*] Installing dependencies..."
-apt-get update -y >> "$LOG" 2>&1
-apt-get install -y curl git wget >> "$LOG" 2>&1
+echo "dependencies list:"
+echo "-curl"
+echo "-git"
+echo "-wget"
+echo "-python3"
+read -rp "Do you want to continue? [y/n] " dodp
+
+if [[ "$dodp" =~ ^[Yy]$ ]]; then
+    echo "[*] Updating package lists..."
+    apt-get update -y >> "$LOG" 2>&1
+
+    echo "[*] Installing packages..."
+    apt-get install -y curl git wget python3 >> "$LOG" 2>&1
+
+    echo "[+] Dependencies installed successfully."
+else
+    echo "Installation cancelled."
+    exit 0
+fi
 
 # ── GET LATEST VERSION ────────────────────────────────────────────────────────
 echo "[*] Fetching latest version..."
