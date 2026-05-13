@@ -117,7 +117,7 @@ else
 fi
 
 echo "${LATEST#v}" > "$TARGET/VERSION.txt"
-
+rm -f "$TARGET/PREVERSION.txt" 2>/dev/null || true
 echo ""
 echo " Installation complete!"
 echo "   Version : ${LATEST#v}"
