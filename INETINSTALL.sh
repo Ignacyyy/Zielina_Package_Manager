@@ -6,7 +6,7 @@ TMP="/tmp/ZMP_INETINSTALL_$$"
 TARGET="/opt/ZPM"
 
 exec > >(tee -a "$LOG") 2>&1
-echo "=== ZPM Internet Installer ==="
+echo "===== ZPM Internet Installer ====="
 
 # ── CLEANUP TRAP ──────────────────────────────────────────────────────────────
 cleanup() {
@@ -34,13 +34,14 @@ if [[ "$odp" != "y" && "$odp" != "Y" ]]; then
 fi
 
 # ── DEPENDENCIES ─────────────────────────────────────────────────────────────
+echo ""
 echo "[*] Installing dependencies..."
 echo "dependencies list:"
 echo "-curl"
 echo "-git"
 echo "-wget"
 echo "-python3"
-read -rp "  Do you want to continue? [y/n] " dodp
+read -rp " Do you want to continue? [y/n] " dodp
 echo ""
 if [[ "$dodp" =~ ^[Yy]$ ]]; then
     echo "[*] Updating package lists..."
