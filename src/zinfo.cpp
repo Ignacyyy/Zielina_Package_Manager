@@ -1,5 +1,5 @@
 #include "main.h"
-#include "update.h"
+
 // funkcja do obsługi jednego pakietu
 void showPackageInfo(const std::string& pkg) {
     std::string command = "apt show " + pkg + " 2>/dev/null";
