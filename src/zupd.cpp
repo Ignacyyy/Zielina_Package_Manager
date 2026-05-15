@@ -1,5 +1,5 @@
 #include "main.h"
-#include "update.h"
+
 using namespace std;
 
 const string LOG_PATH = "/tmp/zupd.log";
