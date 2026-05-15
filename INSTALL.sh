@@ -9,7 +9,7 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-echo "====== ZPM manual install ======"
+echo "====== ZPM INSTALL ======"
 read -rp "Do you want to continue? [y/N] " odp
 
 if [ "$odp" != "y" ] && [ "$odp" != "Y" ]; then
@@ -17,10 +17,27 @@ if [ "$odp" != "y" ] && [ "$odp" != "Y" ]; then
     exit 0
 fi
 
-echo "[*] Installing dependencies..."
-apt-get update -y >> "$LOG" 2>&1
-apt-get install -y curl git wget python3 >> "$LOG" 2>&1
+# ── DEPENDENCIES ─────────────────────────────
+echo ""
+echo "[*] Dependencies list:"
+echo "- curl"
+echo "- git"
+echo "- wget"
+echo "- python3"
+echo ""
 
+read -rp "Do you want to install dependencies? [y/n] " dep
+
+if [ "$dep" = "y" ] || [ "$dep" = "Y" ]; then
+    echo "[*] Installing dependencies..."
+    apt-get update -y >> "$LOG" 2>&1
+    apt-get install -y curl git wget python3 >> "$LOG" 2>&1
+    echo "[+] Dependencies installed."
+else
+    echo "[!] Skipping dependencies (you better know what you're doing 😄)"
+fi
+
+echo ""
 echo "[*] Installing to ${TARGET}..."
 
 rm -rf "$TARGET"
@@ -45,6 +62,8 @@ else
     echo "WARNING: bin/ is empty — no symlinks created."
 fi
 
+# ── CLEAN ONLY PREVERSION ─────────────────────────────
+echo "[*] Cleaning PREVERSION state..."
 rm -f "$TARGET/PREVERSION.txt" 2>/dev/null || true
 
 echo ""
