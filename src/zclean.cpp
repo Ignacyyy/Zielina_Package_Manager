@@ -10,16 +10,27 @@ void handleSigint(int) { g_interrupted = 1; }
 
 // ─── progress bar ─────────────────────────────────────────────────────────────
 void drawGlobalBar(float pct, const string& task) {
-    int width   = 40;
-    int percent = static_cast<int>(pct);
-    if (percent < 0)   percent = 0;
-    if (percent > 100) percent = 100;
-    int pos = width * percent / 100;
+    struct winsize w;
+    int termWidth = 80;
+    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0 && w.ws_col > 0)
+        termWidth = w.ws_col;
+
+    const int barWidth = max(10, min(40, termWidth / 3));
+    const int visualPrefixLen = 26 + barWidth; // "Clean Progress: [" = 17 + "] XXX% | " = 9
+    const int taskMaxLen = max(1, termWidth - visualPrefixLen);
+
+    string taskTrimmed = task;
+    taskTrimmed.erase(remove(taskTrimmed.begin(), taskTrimmed.end(), '\n'), taskTrimmed.end());
+    if ((int)taskTrimmed.size() > taskMaxLen)
+        taskTrimmed = taskTrimmed.substr(0, taskMaxLen - 1) + "~";
+
+    int percent = max(0, min(100, (int)pct));
+    int pos = barWidth * percent / 100;
 
     cout << "\r\033[K" << YELLOW << "Clean Progress: [" << RESET;
-    for (int i = 0; i < width; ++i)
+    for (int i = 0; i < barWidth; ++i)
         cout << (i < pos ? GREEN + "#" + RESET : " ");
-    cout << YELLOW << "] " << percent << "% " << RESET << "| " << task << flush;
+    cout << YELLOW << "] " << setw(3) << percent << "% " << RESET << "| " << taskTrimmed << "\033[K" << flush;
 }
 
 // ─── progress render thread ───────────────────────────────────────────────────

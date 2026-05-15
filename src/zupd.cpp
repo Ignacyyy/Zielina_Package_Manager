@@ -40,19 +40,29 @@ bool wasInterruptedBySigint(int status) {
 }
 
 void drawGlobalBar(float totalProgress, string task) {
-    int width = 40;
-    int pos = width * (totalProgress / 100.0);
+    struct winsize w;
+    int termWidth = 80;
+    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == 0 && w.ws_col > 0)
+        termWidth = w.ws_col;
+
+    const int barWidth = max(10, min(40, termWidth / 3));
+    const int visualPrefixLen = 27 + barWidth;
+    const int taskMaxLen = max(1, termWidth - visualPrefixLen);
+
+    string taskTrimmed = task;
+    taskTrimmed.erase(remove(taskTrimmed.begin(), taskTrimmed.end(), '\n'), taskTrimmed.end());
+    if ((int)taskTrimmed.size() > taskMaxLen)
+        taskTrimmed = taskTrimmed.substr(0, taskMaxLen - 1) + "~";
+
+    int pos = barWidth * (totalProgress / 100.0);
+    int percent = max(0, min(100, (int)totalProgress));
 
     cout << "\r\033[K" << YELLOW << "Update Progress: [" << RESET;
-    for (int i = 0; i < width; ++i) {
+    for (int i = 0; i < barWidth; ++i) {
         if (i < pos) cout << GREEN << "#" << RESET;
         else cout << " ";
     }
-
-    int percent = (int)totalProgress;
-    if (percent > 100) percent = 100;
-    if (percent < 0) percent = 0;
-    cout << YELLOW << "] " << percent << "% " << RESET << "| " << task << flush;
+    cout << YELLOW << "] " << setw(3) << percent << "% " << RESET << "| " << taskTrimmed << "\033[K" << flush;
 }
 
 int countCommandLines(const string& cmd) {
