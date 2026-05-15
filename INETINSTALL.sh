@@ -8,41 +8,46 @@ TARGET="/opt/ZPM"
 exec > >(tee -a "$LOG") 2>&1
 echo "===== ZPM Internet Installer ====="
 
-# ── CLEANUP TRAP ──────────────────────────────────────────────────────────────
+# ── CLEANUP TRAP ─────────────────────────────
 cleanup() {
     local exit_code=$?
     rm -rf "$TMP"
-    if [ $exit_code -ne 0 ]; then
+
+    if [ "$exit_code" -ne 0 ]; then
         echo ""
-        echo " Installation failed (exit code: $exit_code). See log: $LOG"
+        echo "Installation failed (exit code: $exit_code). See log: $LOG"
     fi
-    exit $exit_code
+
+    exit "$exit_code"
 }
 trap cleanup EXIT
 
-# ── ROOT CHECK ────────────────────────────────────────────────────────────────
+# ── ROOT CHECK ─────────────────────────────
 if [ "$(id -u)" -ne 0 ]; then
     echo "ERROR: Run with sudo!"
     exit 1
 fi
 
-# ── CONFIRM ───────────────────────────────────────────────────────────────────
+# ── CONFIRM INSTALL ─────────────────────────────
 read -rp "Start installation of ZPM? [y/n] " odp
-if [[ "$odp" != "y" && "$odp" != "Y" ]]; then
+
+if [ "$odp" != "y" ] && [ "$odp" != "Y" ]; then
     echo "Cancelled."
     exit 0
 fi
 
-# ── DEPENDENCIES ─────────────────────────────────────────────────────────────
-echo "[*] Installing dependencies..."
-echo "dependencies list:"
-echo "-curl"
-echo "-git"
-echo "-wget"
-echo "-python3"
-read -rp "Do you want to continue? [y/n] " dodp
+# ── DEPENDENCIES ─────────────────────────────
+echo ""
+echo "[*] Dependencies list:"
+echo "- curl"
+echo "- git"
+echo "- wget"
+echo "- python3"
+echo ""
 
-if [[ "$dodp" =~ ^[Yy]$ ]]; then
+read -rp "Do you want to install dependencies? [y/n] " dep
+
+if [ "$dep" = "y" ] || [ "$dep" = "Y" ]; then
     echo "[*] Updating package lists..."
     apt-get update -y >> "$LOG" 2>&1
 
@@ -51,45 +56,49 @@ if [[ "$dodp" =~ ^[Yy]$ ]]; then
 
     echo "[+] Dependencies installed successfully."
 else
-    echo "Installation cancelled."
-    exit 0
+    echo "[!] Skipping dependencies."
 fi
 
-# ── GET LATEST VERSION ────────────────────────────────────────────────────────
+# ── GET LATEST VERSION ─────────────────────────────
+echo ""
 echo "[*] Fetching latest version..."
+
 LATEST=$(curl -fsSL "https://api.github.com/repos/Ignacyyy/ZPM/releases/latest" \
     | grep '"tag_name"' \
     | cut -d '"' -f4)
 
-if [ -z "$LATEST" ]; then
-    echo "ERROR: Could not fetch latest version. Check your internet connection."
+if [ -z "${LATEST:-}" ]; then
+    echo "ERROR: Could not fetch latest version."
     exit 1
 fi
-echo "    Latest: $LATEST"
 
-# ── DOWNLOAD ─────────────────────────────────────────────────────────────────
+echo "Latest: $LATEST"
+
+# ── DOWNLOAD ─────────────────────────────
 mkdir -p "$TMP"
 cd "$TMP"
 
 echo "[*] Downloading ${LATEST}..."
-if ! wget -q \
-    "https://github.com/Ignacyyy/ZPM/archive/refs/tags/${LATEST}.tar.gz" 2>&1; then
-    echo "ERROR: Download failed."
-    exit 1
-fi
+
+wget -q \
+    "https://github.com/Ignacyyy/ZPM/archive/refs/tags/${LATEST}.tar.gz" \
+    -O "${LATEST}.tar.gz" >> "$LOG" 2>&1
 
 echo "[*] Extracting..."
 tar -xzf "${LATEST}.tar.gz"
 
-DIR=$(find . -maxdepth 1 -type d -name "ZPM-*" | head -1)
+DIR=$(find . -maxdepth 1 -type d -name "ZPM-*" | head -n 1)
+
 if [ -z "$DIR" ]; then
-    echo "ERROR: Extraction failed — expected directory not found."
+    echo "ERROR: Extraction failed."
     exit 1
 fi
+
 cd "$DIR"
 
-# ── INSTALL ───────────────────────────────────────────────────────────────────
+# ── INSTALL ─────────────────────────────
 echo "[*] Installing to ${TARGET}..."
+
 rm -rf "$TARGET"
 mkdir -p "$TARGET"
 cp -r . "$TARGET/"
@@ -97,10 +106,11 @@ cp -r . "$TARGET/"
 if [ -d "$TARGET/bin" ]; then
     find "$TARGET/bin" -type f -exec chmod +x {} +
 else
-    echo "WARNING: No bin/ directory found in package."
+    echo "WARNING: No bin/ directory found."
 fi
 
-echo "[*] Updating symlinks in /usr/bin/..."
+echo "[*] Updating symlinks in /usr/bin..."
+
 find /usr/bin -maxdepth 1 -type l | while read -r link; do
     if readlink "$link" | grep -q "^${TARGET}/bin/"; then
         rm -f "$link"
@@ -116,10 +126,12 @@ else
     echo "WARNING: bin/ is empty — no symlinks created."
 fi
 
+# ── VERSION CLEAN STATE ─────────────────────────────
 echo "${LATEST#v}" > "$TARGET/VERSION.txt"
 rm -f "$TARGET/PREVERSION.txt" 2>/dev/null || true
+
 echo ""
-echo " Installation complete!"
-echo "   Version : ${LATEST#v}"
-echo "   Path    : ${TARGET}"
-echo "   Log     : ${LOG}"
+echo "Installation complete!"
+echo "Version: ${LATEST#v}"
+echo "Path   : ${TARGET}"
+echo "Log    : ${LOG}"
