@@ -1,6 +1,22 @@
-#include "main.h"
+// Compile: g++ -O2 -o zupgr zupgr.cpp
+
+#include <iostream>
+#include <cstdlib>
+#include <unistd.h>
+#include <string>
+#include <cstdio>
+#include <memory>
+#include <array>
+#include <algorithm>
+#include <ctime>
 
 using namespace std;
+
+const string GREEN  = "\033[1;32m";
+const string RESET  = "\033[0m";
+const string RED    = "\033[31m";
+const string YELLOW = "\033[33m";
+const string CYAN   = "\033[1;36m";
 
 const string TARGET = "/opt/ZPM";
 

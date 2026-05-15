@@ -1,6 +1,13 @@
-#include "main.h"
+#include <iostream>
+#include <string>
+#include <cstdlib>
 
 using namespace std;
+
+const string RED = "\033[31m";
+const string GREEN = "\033[32m";
+const string YELLOW = "\033[33m";
+const string RESET = "\033[0m";
 
 void show_version() {
     cout << RED << "ZPM component version: 1.2" << RESET << endl;
@@ -10,7 +17,7 @@ void show_version() {
 }
 
 void show_help() {
-    cout << RED << "Usage: " << RESET << "zpm <command> [options]" << endl;
+    cout << RED << "Usage: " << RESET << "zpm/ZPM <command> [options]" << endl;
     cout << RED << "Commands:" << RESET << endl;
     cout << "  update, upd     Perform a system upgrade (zupd)" << endl;
     cout << "  upgrade, upgr   Upgrade ZPM itself (zupgr)" << endl;
@@ -93,7 +100,7 @@ int main(int argc, char* argv[]) {
         cout << "License: MIT" << endl;
         cout << "\n";
         cout << YELLOW << "--help\n" << endl;
-        cout << RED << "Usage: " << RESET << "zpm <command> [options]" << endl;
+        cout << RED << "Usage: " << RESET << "zpm/ZPM <command> [options]" << endl;
         cout << RED << "Commands:" << RESET << endl;
         cout << "  update, upd     Perform a system upgrade (zupd)" << endl;
         cout << "  upgrade, upgr   Upgrade ZPM itself (zupgr)" << endl;

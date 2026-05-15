@@ -1,7 +1,21 @@
-#include "main.h"
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <unistd.h>
+#include <vector>
+#include <cstdio>
+#include <algorithm>
+#include <sstream>
+#include <fstream>
+#include <csignal>
+#include <sys/wait.h>
 
 using namespace std;
 
+const string GREEN = "\033[32m";
+const string RED = "\033[31m";
+const string YELLOW = "\033[33m";
+const string RESET = "\033[0m";
 const string LOG_PATH = "/tmp/zupd.log";
 string ans;
 

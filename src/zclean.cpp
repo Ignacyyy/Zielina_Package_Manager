@@ -1,8 +1,26 @@
-#include "main.h"
+// Compile: g++ -O2 -pthread -o zclean zclean.cpp
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <atomic>
+#include <fstream>
+#include <cstdlib>
+#include <unistd.h>
+#include <cstdio>
+#include <csignal>
+#include <fcntl.h>
+#include <pthread.h>
+#include <sys/wait.h>
 
 using namespace std;
 
-
+const string GREEN  = "\033[32m";
+const string YELLOW = "\033[33m";
+const string RED    = "\033[31m";
+const string CYAN   = "\033[36m";
+const string BOLD   = "\033[1m";
+const string RESET  = "\033[0m";
 const string LOG_PATH = "/tmp/zclean.log";
 
 volatile sig_atomic_t g_interrupted = 0;

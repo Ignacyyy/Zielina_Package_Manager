@@ -1,4 +1,14 @@
-#include "main.h"
+#include <iostream>
+#include <cstdio>
+#include <string>
+#include <algorithm>
+#include <unistd.h>
+
+// colors
+const std::string GREEN = "\033[1;32m";
+const std::string YELLOW = "\033[1;33m";
+const std::string RED = "\033[1;31m";
+const std::string RESET = "\033[0m";
 
 // lowercase
 std::string toLower(std::string str) {

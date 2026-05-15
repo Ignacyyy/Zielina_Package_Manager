@@ -1,7 +1,12 @@
-#include "main.h"
+#include <iostream>
+#include <string>
+#include <fstream>
 
 int main() {
-    
+    const std::string RED = "\033[1;31m";
+    const std::string GREEN = "\033[1;32m";
+    const std::string BOLD = "\033[1m";
+    const std::string RESET = "\033[0m";
 
     std::string version = "unknown";
     std::ifstream plik("/opt/ZPM/VERSION.txt");
