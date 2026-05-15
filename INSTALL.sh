@@ -6,7 +6,7 @@ TARGET="/opt/ZPM"
 
 exec > >(tee -a "$LOG") 2>&1
 
-echo "====== ZPM INSTALL ======"
+echo "====== ZPM MANUAL INSTALL ======"
 
 # ── ROOT CHECK ─────────────────────────────
 if [ "$(id -u)" -ne 0 ]; then
