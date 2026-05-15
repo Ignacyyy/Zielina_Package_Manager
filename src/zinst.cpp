@@ -1,27 +1,9 @@
-// Compile: g++ -O2 -pthread -o zinst zinst.cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <unistd.h>
-#include <cstdio>
-#include <algorithm>
-#include <fstream>
-#include <csignal>
-#include <cmath>
-#include <fcntl.h>
-#include <pthread.h>
-#include <atomic>
-#include <sys/wait.h>
+#include "main.h"
+#include "update.h"
 
 using namespace std;
 
-const string GREEN  = "\033[32m";
-const string YELLOW = "\033[33m";
-const string RED    = "\033[31m";
-const string CYAN   = "\033[36m";
-const string BOLD   = "\033[1m";
-const string RESET  = "\033[0m";
+
 const string LOG_PATH = "/tmp/zinst.log";
 
 volatile sig_atomic_t g_interrupted = 0;
@@ -460,6 +442,7 @@ int runSnapInstallWithProgress(const string& pkg, float startRange, float endRan
 
 // ─── main ─────────────────────────────────────────────────────────────────────
 int main(int argc, char* argv[]) {
+    zpm_update::checkForUpdates();
     signal(SIGINT, handleSigint);
     // Disable stdout buffering so progress bar updates appear immediately
     setvbuf(stdout, nullptr, _IONBF, 0);

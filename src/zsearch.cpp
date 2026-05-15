@@ -1,14 +1,5 @@
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <algorithm>
-#include <unistd.h>
-
-// colors
-const std::string GREEN = "\033[1;32m";
-const std::string YELLOW = "\033[1;33m";
-const std::string RED = "\033[1;31m";
-const std::string RESET = "\033[0m";
+#include "main.h"
+#include "update.h"
 
 // lowercase
 std::string toLower(std::string str) {
@@ -30,7 +21,7 @@ std::string highlight(const std::string& text, const std::string& query) {
 }
 
 int main(int argc, char* argv[]) {
-
+    zpm_update::checkForUpdates();
     using namespace std;
     bool           showHelp       = false;
     bool           showVersion    = false;

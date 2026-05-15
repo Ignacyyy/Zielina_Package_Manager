@@ -1,13 +1,8 @@
-#include <iostream>
-#include <string>
-#include <fstream>
+#include "main.h"
+#include "update.h"
 
 int main() {
-    const std::string RED = "\033[1;31m";
-    const std::string GREEN = "\033[1;32m";
-    const std::string BOLD = "\033[1m";
-    const std::string RESET = "\033[0m";
-
+    zpm_update::checkForUpdates();
     std::string version = "unknown";
     std::ifstream plik("/opt/ZPM/VERSION.txt");
     if (plik.is_open()) {

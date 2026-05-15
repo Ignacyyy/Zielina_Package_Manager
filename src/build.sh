@@ -2,7 +2,7 @@
 
 SRC_DIR="$(pwd)"
 DEST_DIR="/opt/ZPM"
-INCLUDE_DIR="/opt/ZPM/src/common"
+
 # create destination directory if it does not exist
 if [ ! -d "$DEST_DIR" ]; then
     sudo mkdir -p "$DEST_DIR"
@@ -17,7 +17,7 @@ for file in "$SRC_DIR"/*.cpp; do
 
     echo "Compiling $filename -> $name"
 
-    g++ -O2 -I "$INCLUDE_DIR" "$file" -o "$name"
+    g++ -O2 "$file" -o "$name"
 
     if [ $? -eq 0 ]; then
 
