@@ -1,93 +1,77 @@
-Zielina Package Manager
+# Zielina Package Manager (ZPM)
 
-                               ↑
-                               ↑↑
-                               ↖↑↙←                       ↑
-                               ↑↖↙↖↘↖                     ↑
-                               ↗↙↑↑↙↑↑←                 ↖↑←
-                               →↖↖↓↑↖↑↓↑              →↑↑↑
-                               ↙↑↖↖↑↖←↙↓↑           ↑↑↖ ↖←
-                               ↑↑↖↖↗→↖↑↖↑→         ↙↖↑↑→↖↑
-                                ↙↙↑↙↗↘↖↓↖↑       ↑↙←↑↓↖↘↑   ↑
-                                ↑↘↖↖←↑↗↓↖↑      →↑↖↑←→↖↖↑  ←↑
-                                 ↑←↑←↖↖←↓↘↖    ←↑ ↑↖↗↖↗↙↑ ↙←←
-                                   ↑↗→↙↑↑↓    ↓↖↖↓↖↑→↖→→ ↖↖↖↖↙
-                                     ↑↙←↘→    ↙↗↖↑↑↓↑↖↖↑ ↓↖↑↘←
-               ↑↑↑↓↑↖↖↖↖↑↙↙↑↙→↙↘↖     →→↑↓←  ↑←↗↖→↖↖↖↑↑ ↖↑↖↗↖→
-                 ↗←↖↖↑↑↘→↘↗↖↖↗↖↖↑↙↖↘    ↑↙↗  ↗↖↙↖↙←↑↓↑ ↓↖←→←↙←
-                   ↙↑↙↖↖↖↙↑↑→↘↖→↖↑↖↖↑↑↖   ↑  ↙↘↖↑↖↙↑  ↖→↑↖↑←←↑
-                      ↑↑↖↖↖↓←↑↗↗↑↖↑↓↖↙↖↘←    ↙↖↑↖→↑  ↓↙↑↖↖↑↖↖↓
-                        ↑↑→←↖↙↖↖↑↓→↓↑↑↑←↙↙   ↖↑→↑    ↑↓↖↑↖↖↘↖→
-                            →↙→↙↙↖→↖↖↖↖↓→↑↑ ↑↖↖     ↓↖↑↖→↑↖←↓↘
-                                  ↑↘→↑↓→↑    ↑      →↖↖→←↖↘←↑
-                                              ↑    ←→↗↖←↘↖↘←↓
-                                               ↑   ←↖↖←↗↖↖↗↘
-                                                ↘  ←→←↖↓↗↙→
-                          ↓↘↑↑→↑↑↙↑↑←↓↑↙↖↓←↓     ↖ ↙↙↖↑↖↓→
-                     ↓↖↓↑↓←↖↘↖↖↓↖↖↖↖↖↑↖↗↑↗↑↓↙↑←←    ↖↓↑←↑
-                  ↑↘→↑↑↙↑↙↗↑↑↘ ↑↑→↘→↗↖↓↖↖↖↖↖←↖↙↖↖↖ ↑ ↖↗
-                        ↙↙↓↑←↙↓↑↖↓↘↖→↘↓↑↑↑↑↗↑↑↑↖↑←→ ↑↖
-                            →↑↖↓↙←↑←←→↓↖↙↗↖←↗↖←↖↙↑   ↑
-                                  →→↙↓↘↓←↙↘↗↙          ↖
-                                                        ↑
+> A modern, unified package management interface for Debian/Ubuntu — combining APT, Flatpak, and Snap into one fast, user-friendly tool.
 
-                                                           ↑
-                                                            ↑
-                                                              ↑
-                                                                ↑↖
-                                                                   ↑
-                                                                     ↑
-                                                                        ↑
-                                                                           ↑↖
+---
 
-HOW TO USE
-------------
-To access the main guide, type:
-    zhelp
-after successful installation.
+## Installation
 
-HOW TO INSTALL
----------------
+### Option 1 — Install from the internet (recommended)
 
-command, copy and paste:
 ```bash
-
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ignacyyy/ZPM/main%2C-APT%28debian%2Cubuntu.%29/INETINSTALL.sh)"
 ```
-HOW TO UPDATE
----------------
-    sudo zupgr
 
-HOW TO UNINSTALL
----------------
-    sudo zuninstall
+### Option 2 — Manual install
+```bash
+go to ZPM directory
+Grant execute permissions
+execute INSTALL.sh inside ZPM directory with sudo, or as root
+done :)
+```
 
-COMMANDS
----------------
-    zpm/ZPM     - new way of using Zielina_Package_Manager, use zpm --help for more info
-    zhelp       - Display help message
-    zinst       - Install package
-    zrm         - Remove package
-    zupgr       - Update ZMP
-    zupd        - Update system packages
-    zlist       - List installed packages
-    zsearch     - Search for package
-    zclean      - Clean package cache
-    zr          - Reboot system
-    zs          - Shutdown system
-    zuninstall  - Uninstall ZMP
-    zinfo       - Package information
- 
-INFO
----------------
-    Works on: Debian/Ubuntu (APT) distros ONLY
-    Installation path: /opt/ZPM
-    Commands location: /usr/bin/z* (symbolic links)
-    Current version: 1.6
+This installs ZPM to `/opt/ZPM` and creates symbolic links in `/usr/bin/`.
 
-DEPENDENCIES
----------------
-    git
-    curl
-    wget
-    sudo
+After installation, run `zhelp` to see the full guide.
+
+**Requirements:** `git`, `curl`, `wget`, `sudo`,`python3` installed with the ZPM
+
+---
+
+## Commands
+
+| Command        | Description                                   |
+|----------------|-----------------------------------------------|
+| `zpm`          | Main interface — run `zpm --help` for details |
+| `zhelp`        | Display help message                          |
+| `zinst`        | Install a package                             |
+| `zrm`          | Remove a package                              |
+| `zupgr`        | Update ZPM itself                             |
+| `zupd`         | Update system packages                        |
+| `zlist`        | List installed packages                       |
+| `zsearch`      | Search for a package                          |
+| `zclean`       | Clean package cache                           |
+| `zinfo`        | Show package information                      |
+| `zr`           | Reboot system                                 |
+| `zs`           | Shutdown system                               |
+| `zuninstall`   | Uninstall ZPM                                 |
+
+---
+
+## Update & Uninstall
+
+```bash
+# Update ZPM
+sudo zupgr
+
+# Uninstall ZPM
+sudo zuninstall
+```
+
+---
+
+## Info
+
+| Property          | Value                          |
+|-------------------|--------------------------------|
+| Version           | 1.6                            |
+| Supported distros | Debian / Ubuntu (APT)          |
+| Installation path | `/opt/ZPM`                     |
+| Commands location | `/usr/bin/z*` (symbolic links) |
+| Language          | C++                            |
+
+---
+
+## License
+
+[MIT](LICENSE)
