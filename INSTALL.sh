@@ -34,7 +34,7 @@ if [ "$dep" = "y" ] || [ "$dep" = "Y" ]; then
     apt-get install -y curl git wget python3 >> "$LOG" 2>&1
     echo "[+] Dependencies installed."
 else
-    echo "[!] Skipping dependencies (you better know what you're doing 😄)"
+    echo "[!] Skipping dependencies"
 fi
 
 echo ""
@@ -67,6 +67,6 @@ echo "[*] Cleaning PREVERSION state..."
 rm -f "$TARGET/PREVERSION.txt" 2>/dev/null || true
 
 echo ""
-echo "Installation complete! 🎉"
+echo "Installation complete!"
 echo "Path: $TARGET"
 echo "Log : $LOG"
