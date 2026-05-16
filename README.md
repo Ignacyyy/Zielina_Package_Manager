@@ -9,7 +9,7 @@
 ### Option 1 — Install from the internet (recommended)
 
 ```bash
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ignacyyy/ZPM/main%2C-APT%28debian%2Cubuntu.%29/INETINSTALL.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ignacyyy/ZPM/main/INETINSTALL.sh)"
 ```
 
 ### Option 2 — Manual install
