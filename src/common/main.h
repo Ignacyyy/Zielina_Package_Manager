@@ -32,6 +32,7 @@
 // ====================== ZPM COMMON ======================
 #include "colors.h"     // colors
 #include "update.h"     // updates
+#include "version.h"    // version (VERSION.txt)
 
 
 
