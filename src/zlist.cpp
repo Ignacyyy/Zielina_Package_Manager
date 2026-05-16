@@ -71,6 +71,10 @@ int main(int argc, char* argv[]) {
              cout << line << RESET << "\n";
          }
          pclose(p);
+         if (!hasFlatpak)
+         {
+            cout << RED << "Flatpak not installed\n" << RESET;
+         }
      }
      return 0;
     }
