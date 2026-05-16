@@ -21,7 +21,7 @@ for file in *.cpp; do
 
     echo "⚙ compiling $file -> $out_name"
 
-    g++ "$file" -O2 -o "$out"
+    g++ "$file" -O2 -I /opt/ZPM/src/common -o "$out"
 
     sudo mv -f "$out" /opt/ZPM/bin/
     sudo ln -sf /opt/ZPM/bin/$out_name /usr/bin/$out_name
