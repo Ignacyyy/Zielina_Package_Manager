@@ -7,7 +7,7 @@ BIN_DIR="$DEST_DIR/bin"
 COMMON_DIR="$DEST_DIR/src/common"
 SYMLINK_DIR="/usr/bin"
 
-echo "🚀 Starting ZPM build..."
+echo " Starting ZPM build..."
 
 # ───────────────────────── DIRS ─────────────────────────
 
@@ -17,7 +17,7 @@ sudo mkdir -p "$DEST_DIR/src"
 # ───────────────────────── COMMON ─────────────────────────
 
 if [ -d "$SRC_DIR/common" ]; then
-    echo "📦 Syncing common..."
+    echo " Syncing common..."
 
     sudo rm -rf "$COMMON_DIR"
     sudo cp -r "$SRC_DIR/common" "$COMMON_DIR"
@@ -57,7 +57,7 @@ for file in "$SRC_DIR"/*.cpp; do
 
     sudo ln -sf "$BIN_DIR/$out_name" "$SYMLINK_DIR/$out_name"
 
-    echo "🔗 installed -> $SYMLINK_DIR/$out_name"
+    echo " installed -> $SYMLINK_DIR/$out_name"
 done
 
 # ───────────────────────── FINISH ─────────────────────────
@@ -65,4 +65,4 @@ done
 echo ""
 echo " Build complete"
 echo " binaries: $BIN_DIR"
-echo "🔗 symlinks: $SYMLINK_DIR"
+echo " symlinks: $SYMLINK_DIR"
