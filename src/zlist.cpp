@@ -58,8 +58,7 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     if (flatpak){
-        bool hasFlatpak = (access("/usr/bin/flatpak", X_OK) == 0 ||
-        access("/bin/flatpak",     X_OK) == 0);
+        bool hasFlatpak = system("command -v flatpak >/dev/null 2>&1") == 0;
         if (hasFlatpak) {
          cout << "\n" << YELLOW << "=== Flatpak packages ===\n" << RESET;
      
@@ -100,8 +99,7 @@ int main(int argc, char* argv[]) {
     system("apt list --installed 2>/dev/null");
 
     // ─── FLATPAK ─────────────────────────────────────────────────────────────
-    bool hasFlatpak = (access("/usr/bin/flatpak", X_OK) == 0 ||
-                       access("/bin/flatpak",     X_OK) == 0);
+    bool hasFlatpak = system("command -v flatpak >/dev/null 2>&1") == 0;
                        if (hasFlatpak) {
                         cout << "\n" << YELLOW << "=== Flatpak packages ===\n" << RESET;
                     
