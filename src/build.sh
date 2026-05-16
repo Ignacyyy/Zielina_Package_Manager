@@ -22,9 +22,9 @@ if [ -d "$SRC_DIR/common" ]; then
     sudo rm -rf "$COMMON_DIR"
     sudo cp -r "$SRC_DIR/common" "$COMMON_DIR"
 
-    echo "✔ common updated"
+    echo " common updated"
 else
-    echo "⚠ No common folder found"
+    echo " No common folder found"
 fi
 
 # ───────────────────────── BUILD ─────────────────────────
@@ -49,7 +49,7 @@ for file in "$SRC_DIR"/*.cpp; do
 
     g++ -O2 "$file" -I "$COMMON_DIR" -o "$tmp_out"
 
-    echo "✔ build OK -> $out_name"
+    echo " build OK -> $out_name"
 
     # ───────────────────────── INSTALL ─────────────────────────
 
