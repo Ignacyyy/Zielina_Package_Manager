@@ -211,7 +211,7 @@ int main(int argc, char* argv[]) {
     if (help && version) {
 
         cout << YELLOW << "--version" << RESET << "\n";
-        cout << RED << "zupgr component version: 1.3 of ZPM" << RESET << "\n";
+        cout << RED << "zupgr component version: " << zpm_version::version() << " of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\n";
         cout << "License: MIT\n\n";
@@ -225,13 +225,14 @@ int main(int argc, char* argv[]) {
         cout << "  --help,    -h   Show this help message\n";
         cout << "  --version, -v   Show version information\n";
         cout << "  --force,   -f   Force reinstall even if already up to date\n";
+        cout << "  --experimental, -ex  update ZPM to prerelease versions\n";
 
         return 0;
     }
 
     if (version) {
 
-        cout << RED << "zupgr component version: 1.3 of ZPM\n" << RESET;
+        cout << RED << "zupgr component version: " << zpm_version::version() << " of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "License: MIT\n";
 
@@ -248,7 +249,7 @@ int main(int argc, char* argv[]) {
         cout << "  -h, --help      Show help\n";
         cout << "  -v, --version   Show version\n";
         cout << "  -f, --force     Force reinstall even if already up to date\n";
-        cout << "  -ex, --experimental  Install latest pre-release\n";
+        cout << "  --experimental, -ex  update ZPM to prerelease versions\n";
 
         cout << "\nChecks and installs updates for ZPM.\n";
 

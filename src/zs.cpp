@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
 
     if(showVersion && showHelp){
         cout << YELLOW << "--version\n" << RESET;
-        cout << RED << "zs component version: 1.2 of ZPM\n" << RESET;
+        cout << RED << "zs component version: " << zpm_version::version() << " of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         cout << "\n";
@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
     }
 
     if (showVersion) {
-        cout << RED << "zs component version: 1.2 of ZPM\n" << RESET;
+        cout << RED << "zs component version: " << zpm_version::version() << " of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM\n";
         cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
         return 0;

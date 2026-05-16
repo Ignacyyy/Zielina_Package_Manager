@@ -371,7 +371,7 @@ int main(int argc, char* argv[]) {
 
     if (version && Help){
         cout << YELLOW <<"--version" << RESET << endl;
-        cout << RED << "zupd component version: 1.2 of ZPM" << RESET << endl;
+        cout << RED << "zupd component version: " << zpm_version::version() << " of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
@@ -390,7 +390,7 @@ int main(int argc, char* argv[]) {
 
 
     if (version) {
-        cout << RED << "zupd component version: 1.2 of ZPM" << RESET << endl;
+        cout << RED << "zupd component version: " << zpm_version::version() << " of ZPM\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;

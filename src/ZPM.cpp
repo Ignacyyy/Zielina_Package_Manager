@@ -3,7 +3,7 @@
 using namespace std;
 
 void show_version() {
-    cout << RED << "ZPM component version: 1.2" << RESET << endl;
+    cout << RED << "zpm component version: " << zpm_version::version() << "\n" << RESET;
     cout << "https://github.com/Ignacyyy/ZPM" << endl;
     cout << "Copyright (c) 2026 Ignacyyy" << endl;
     cout << "License: MIT" << endl;
@@ -57,6 +57,7 @@ int main(int argc, char* argv[]) {
         else if (cmd == "reboot" || cmd == "r") target = "zr";
         else if (cmd == "shutdown" || cmd == "s") target = "zs";
         else if (cmd == "uninstall") target = "zuninstall";
+        else if (cmd == "help") target = "zelp";
         else {
             cerr << "unknown command: " << cmd << "\n";
             cerr << "run 'zpm --help' to list all commands.\n";
@@ -87,12 +88,12 @@ int main(int argc, char* argv[]) {
 
     if (version && help) {
         cout << YELLOW << "--version\n" << RESET;
-        cout << RED << "ZPM component version: 1.2" << RESET << endl;
+        cout << RED << "zpm component version: " << zpm_version::version() << "\n" << RESET;
         cout << "https://github.com/Ignacyyy/ZPM" << endl;
         cout << "Copyright (c) 2026 Ignacyyy" << endl;
         cout << "License: MIT" << endl;
         cout << "\n";
-        cout << YELLOW << "--help\n" << endl;
+        cout << YELLOW << "--help" << endl;
         cout << RED << "Usage: " << RESET << "zpm <command> [options]" << endl;
         cout << RED << "Commands:" << RESET << endl;
         cout << "  update, upd     Perform a system upgrade (zupd)" << endl;

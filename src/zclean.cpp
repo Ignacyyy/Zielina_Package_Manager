@@ -168,7 +168,7 @@ int runAptTask(const string& label, const vector<const char*>& args,
 
                                       if (Version && Help) {
                                           cout << YELLOW << "--version" << RESET << "\n";
-                                          cout << RED << "zclean component version: 1.2 of ZPM\n" << RESET;
+                                          cout << RED << "zclean component version: " << zpm_version::version() << " of ZPM\n" << RESET;
                                           cout << "https://github.com/Ignacyyy/ZPM\n";
                                           cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n\n";
                                           cout << YELLOW << "--help\n" << RESET;
@@ -179,7 +179,7 @@ int runAptTask(const string& label, const vector<const char*>& args,
                                           return 0;
                                       }
                                       if (Version) {
-                                          cout << RED << "zclean component version: 1.2 of ZPM\n" << RESET;
+                                          cout << RED << "zclean component version: " << zpm_version::version() << " of ZPM\n" << RESET;
                                           cout << "https://github.com/Ignacyyy/ZPM\n";
                                           cout << "Copyright (c) 2026 Ignacyyy\nLicense: MIT\n";
                                           return 0;
