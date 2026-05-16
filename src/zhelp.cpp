@@ -2,7 +2,7 @@
 
 
 int main() {
-
+    zpm_update::checkForUpdates();
 
     std::cout << RED << "Zielina Package Manager (ZPM) " << RESET << "v" << zpm_version::version() << std::endl;
     std::cout << "https://github.com/Ignacyyy/ZPM\n" << std::endl;
