@@ -1,11 +1,13 @@
 #!/bin/bash
+set -euo pipefail
 
-SRC_DIR="$(pwd)"
+SRC_DIR="$(cd "$(dirname "$0")" && pwd)"
 DEST_DIR="/opt/ZPM"
 BIN_DIR="$DEST_DIR/bin"
+COMMON_DIR="$DEST_DIR/src/common"
 SYMLINK_DIR="/usr/bin"
 
-echo "Starting ZPM build..."
+echo "🚀 Starting ZPM build..."
 
 # ───────────────────────── DIRS ─────────────────────────
 
@@ -15,57 +17,52 @@ sudo mkdir -p "$DEST_DIR/src"
 # ───────────────────────── COMMON ─────────────────────────
 
 if [ -d "$SRC_DIR/common" ]; then
-    echo "Copying common folder..."
+    echo "📦 Syncing common..."
 
-    sudo rm -rf "$DEST_DIR/src/common"
-    sudo cp -r "$SRC_DIR/common" "$DEST_DIR/src/"
+    sudo rm -rf "$COMMON_DIR"
+    sudo cp -r "$SRC_DIR/common" "$COMMON_DIR"
 
-    echo "Common copied."
+    echo "✔ common updated"
 else
-    echo "No common folder found."
+    echo "⚠ No common folder found"
 fi
 
-# ───────────────────────── BUILD ALL ─────────────────────────
+# ───────────────────────── BUILD ─────────────────────────
 
 for file in "$SRC_DIR"/*.cpp; do
     [ -e "$file" ] || continue
 
-    filename=$(basename -- "$file")
+    filename=$(basename "$file")
     name="${filename%.cpp}"
 
     echo ""
-    echo "Compiling $filename -> $name"
+    echo "⚙ Compiling $filename"
 
-    sudo g++ -O2 "$file" -I "$DEST_DIR/src/common" -o "$name"
+    tmp_out="/tmp/$name"
 
-    if [ $? -ne 0 ]; then
-        echo "Compilation failed: $filename"
-        continue
+    # special case: main binary
+    if [ "$name" = "ZPM" ]; then
+        out_name="zpm"
+    else
+        out_name="$name"
     fi
 
-    echo "Build OK."
+    g++ -O2 "$file" -I "$COMMON_DIR" -o "$tmp_out"
 
-    # ───────────────────────── CLEAN OLD VERSION ─────────────────────────
+    echo "✔ build OK -> $out_name"
 
-    sudo rm -f "$BIN_DIR/$name"
-    sudo rm -f "$SYMLINK_DIR/$name"
+    # ───────────────────────── INSTALL ─────────────────────────
 
-    # ───────────────────────── INSTALL NEW ─────────────────────────
+    sudo mv -f "$tmp_out" "$BIN_DIR/$out_name"
 
-    sudo mv -f "$name" "$BIN_DIR/"
+    sudo ln -sf "$BIN_DIR/$out_name" "$SYMLINK_DIR/$out_name"
 
-    # ───────────────────────── SYMLINK ─────────────────────────
-
-    sudo ln -sf "$BIN_DIR/$name" "$SYMLINK_DIR/$name"
-
-    echo "Installed -> $SYMLINK_DIR/$name"
+    echo "🔗 installed -> $SYMLINK_DIR/$out_name"
 done
 
-# ───────────────────────── CLEAN CACHE ─────────────────────────
-
-hash -r 2>/dev/null
+# ───────────────────────── FINISH ─────────────────────────
 
 echo ""
-echo "Build complete."
-echo "Binaries location: $BIN_DIR"
-echo "Symlinks: $SYMLINK_DIR"
+echo " Build complete"
+echo " binaries: $BIN_DIR"
+echo "🔗 symlinks: $SYMLINK_DIR"
