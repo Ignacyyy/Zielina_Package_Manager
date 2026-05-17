@@ -24,7 +24,7 @@ fi
 
 # ── DEPENDENCIES ─────────────────────────────
 echo ""
-echo "[*] Dependencies list:"
+echo "====== ZPM Dependencies ======="
 echo "- curl"
 echo "- git"
 echo "- wget"
@@ -45,7 +45,6 @@ fi
 # ── SOURCE DIR ─────────────────────────────
 SRC_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo ""
 echo "[*] Source directory: $SRC_DIR"
 
 # ── INSTALL ─────────────────────────────
