@@ -81,6 +81,7 @@ else
     echo "WARNING: bin/ is empty — no symlinks created."
 fi
 # ── ARM SYSTEMS ─────────────────────────────
+echo ""
 echo "===== ZPM ARM Compatibility ====="
 
 read -rp "Do you want to recompile ZPM for ARM systems? [y/n] " rec
@@ -92,7 +93,7 @@ if [ "$rec" = "y" ] || [ "$rec" = "Y" ]; then
         rm -f "$TARGET/PREVERSION.txt" 2>/dev/null || true
         exit 1
     fi
-
+    echo ""
     echo "[*] Recompiling ZPM..."
     echo "[*] Recompiling Programs...(it can take a while....)"
 
