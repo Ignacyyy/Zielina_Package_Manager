@@ -125,7 +125,29 @@ if [ -d "$TARGET/bin" ] && [ -n "$(ls -A "$TARGET/bin" 2>/dev/null)" ]; then
 else
     echo "WARNING: bin/ is empty — no symlinks created."
 fi
+# ── ARM SYSTEMS ─────────────────────────────
+echo "===== ZPM ARM Compatibility ====="
 
+read -rp "Do you want to recompile ZPM for ARM systems? [y/n] " rec
+
+if [ "$rec" = "y" ] || [ "$rec" = "Y" ]; then
+
+    if [ ! -f /opt/ZPM/src/build.sh ]; then
+        echo "ERROR: build.sh not found."
+        rm -f "$TARGET/PREVERSION.txt" 2>/dev/null || true
+        exit 1
+    fi
+
+    echo "[*] Recompiling ZPM..."
+    echo "[*] Recompiling Programs...(it can take a while....)"
+
+    cd /opt/ZPM/src
+    bash build.sh >> "$LOG" 2>&1
+
+    echo "[*] Cleanup trash"
+
+    cd ~
+fi
 # ── VERSION CLEAN STATE ─────────────────────────────
 echo "${LATEST#v}" > "$TARGET/VERSION.txt"
 rm -f "$TARGET/PREVERSION.txt" 2>/dev/null || true
