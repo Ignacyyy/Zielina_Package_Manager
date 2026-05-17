@@ -38,7 +38,7 @@ fi
 
 # ── DEPENDENCIES ─────────────────────────────
 echo ""
-echo "[*] Dependencies list:"
+echo "====== ZPM Dependencies ======="
 echo "- curl"
 echo "- git"
 echo "- wget"
@@ -60,7 +60,7 @@ else
 fi
 
 # ── GET LATEST VERSION ─────────────────────────────
-echo ""
+
 echo "[*] Fetching latest version..."
 
 LATEST=$(curl -fsSL "https://api.github.com/repos/Ignacyyy/ZPM/releases/latest" \
