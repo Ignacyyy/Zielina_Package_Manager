@@ -1,3 +1,11 @@
+ZPM v1.7
+Program updates: (General)
+- zhelp new UI, 
+- fix progressbar 
+- added update info to zielina.conf
+- now programs can detect new versions of ZPM and show you info
+- added flatpak and snap support to zinfo, zlist and zsearch
+
 ZPM v1.6
 Added:
 - PREVERSION.txt
