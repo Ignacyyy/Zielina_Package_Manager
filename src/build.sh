@@ -19,7 +19,7 @@ for file in *.cpp; do
 
     out="/tmp/$out_name"
 
-    echo "⚙ compiling $file -> $out_name"
+    echo " compiling $file -> $out_name"
 
     g++ "$file" -O2 -I /opt/ZPM/src/common -o "$out"
 
